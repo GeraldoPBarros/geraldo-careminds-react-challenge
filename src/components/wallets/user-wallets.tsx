@@ -1,35 +1,48 @@
 "use client";
 
 import React from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { TableCell, TableRow } from "@/components/ui/table";
+import { PortfolioProps } from "@/types/portfolio";
+import { formatNumber } from "@/lib/utils";
 
-export function UserWallets() {
+interface UserPortfolioProps {
+  userPortfolio: PortfolioProps;
+  isLastBorder: boolean;
+}
+
+export function UserWallets({
+  userPortfolio,
+  isLastBorder,
+}: UserPortfolioProps) {
   return (
-    <div className="flex flex-col">
-      <label className="text-black">Wallets</label>
-      <Table className="mt-4 border border-gray-300 rounded-lg text-black">
-        <TableHeader>
+    <>
+      {isLastBorder ? (
+        <>
           <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Current Amount</TableHead>
-            <TableHead>Spent Amount</TableHead>
+            <TableCell className="text-left px-4">{userPortfolio.walletName}</TableCell>
+            <TableCell className="text-right px-4">{`$${formatNumber(
+              userPortfolio.currentAmount
+            )}`}</TableCell>
+            <TableCell className="text-right px-4">{`$${formatNumber(
+              userPortfolio.spentAmount
+            )}`}</TableCell>
           </TableRow>
-        </TableHeader>
-        <TableBody>
+        </>
+      ) : (
+        <>
           <TableRow>
-            <TableCell>Main Investment</TableCell>
-            <TableCell>$42.000</TableCell>
-            <TableCell>$35.000</TableCell>
+            <TableCell className="text-left border-b border-gray-300 px-4">
+              {userPortfolio.walletName}
+            </TableCell>
+            <TableCell className="text-right border-b border-gray-300 px-4">{`$${formatNumber(
+              userPortfolio.currentAmount
+            )}`}</TableCell>
+            <TableCell className="text-right border-b border-gray-300 px-4">{`$${formatNumber(
+              userPortfolio.spentAmount
+            )}`}</TableCell>
           </TableRow>
-        </TableBody>
-      </Table>
-    </div>
+        </>
+      )}
+    </>
   );
 }
