@@ -6,6 +6,10 @@ export default async function Home() {
   );
   const portfolio = await response.json();
 
+  if (!response.ok) {
+    return <>Error fetching data!</>
+  }
+
   return (
     <div className="flex justify-items-center min-h-screen p-8 font-[family-name:var(--font-geist-sans)] bg-white">
       <UserPortfolio userPortfolio={portfolio} />
