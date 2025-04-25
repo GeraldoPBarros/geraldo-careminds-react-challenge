@@ -13,3 +13,13 @@ export function formatNumber(value: number): string {
 
   return formattedNumber;
 }
+
+export function checkNumberAndUpdateToComma(value: string): string {
+  'use strict';
+
+  const newValue = value.replace('.', ',');
+
+  if (!isNaN(parseFloat(newValue))) return newValue;
+
+  return value;
+}

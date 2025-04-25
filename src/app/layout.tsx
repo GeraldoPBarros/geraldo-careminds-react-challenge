@@ -28,7 +28,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <header className="flex text-white text-center h-16 items-center justify-center">
-          <div className="w-[1150px] flex justify-start">
+          <div className="w-[1260px] flex justify-start">
             <label className="flex text-left text-3xl font-bold ml-32">
               Investment Portfolio
             </label>

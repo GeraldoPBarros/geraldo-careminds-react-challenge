@@ -8,14 +8,18 @@ import { formatNumber } from "@/lib/utils";
 interface UserPortfolioProps {
   userPortfolio: PortfolioProps;
   isLastBorder: boolean;
+  isSelected: boolean;
   updateSelectedAsset: (value: string) => void;
 }
 
 export function UserWallets({
   userPortfolio,
   isLastBorder,
+  isSelected,
   updateSelectedAsset,
 }: UserPortfolioProps) {
+  console.log(isSelected);
+
   return (
     <>
       {isLastBorder ? (
@@ -24,13 +28,17 @@ export function UserWallets({
             className="cursor-pointer"
             onClick={() => updateSelectedAsset(userPortfolio.walletName)}
           >
-            <TableCell className="text-left px-4">
+            <TableCell
+              className={`text-left px-4 ${
+                isSelected ? "font-bold" : "font-normal"
+              }`}
+            >
               {userPortfolio.walletName}
             </TableCell>
             <TableCell className="text-right px-4">{`$${formatNumber(
               userPortfolio.currentAmount
             )}`}</TableCell>
-            <TableCell className="text-right px-4">{`$${formatNumber(
+            <TableCell className="text-right px-4 ">{`$${formatNumber(
               userPortfolio.spentAmount
             )}`}</TableCell>
           </TableRow>
@@ -41,7 +49,11 @@ export function UserWallets({
             className="cursor-pointer"
             onClick={() => updateSelectedAsset(userPortfolio.walletName)}
           >
-            <TableCell className="text-left border-b border-gray-300 px-4">
+            <TableCell
+              className={`text-left border-b border-gray-300 px-4 ${
+                isSelected ? "font-bold" : "font-normal"
+              }`}
+            >
               {userPortfolio.walletName}
             </TableCell>
             <TableCell className="text-right border-b border-gray-300 px-4">{`$${formatNumber(

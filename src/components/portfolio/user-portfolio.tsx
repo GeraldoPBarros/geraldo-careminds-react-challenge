@@ -37,12 +37,12 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
 
   return (
     <div className="flex w-full justify-center">
-      <div className="flex flex-col">
+      <div className="flex flex-col w-[500px]">
         <label className="text-black text-2xl">Wallets</label>
-        <Table className="mt-4 border border-gray-300 text-black rounded-lg border-separate">
+        <Table className="mt-4 border border-gray-300 text-black rounded-lg border-separate max-w-[300px]">
           <TableHeader className="bg-gray-50">
-            <TableRow>
-              <TableHead className="border-gray-300 px-4 py-2">
+            <TableRow >
+              <TableHead className="border-b border-gray-300 px-4 py-2">
                 Name
               </TableHead>
               <TableHead className="border-b border-gray-300 px-4 py-2">
@@ -58,6 +58,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
               <UserWallets
                 key={`${portfolio.walletName}` + index}
                 userPortfolio={portfolio}
+                isSelected={selectedAsset === portfolio.walletName}
                 isLastBorder={index === userPortfolio.length - 1}
                 updateSelectedAsset={setSelectedAsset}
               />
@@ -65,7 +66,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
           </TableBody>
         </Table>
       </div>
-      <div className="flex flex-col ml-4">
+      <div className="flex flex-col w-[500px]">
         <label className="text-black text-2xl">Assets</label>
         <Table className="mt-4 border border-gray-300 text-black rounded-lg border-separate">
           <TableHeader className="bg-gray-50">
@@ -73,13 +74,13 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
               <TableHead className="border-b border-gray-300 px-4 py-2">
                 Asset
               </TableHead>
-              <TableHead className="border-b border-gray-300 px-4 py-2">
+              <TableHead className="border-b border-gray-300 px-4 py-2 text-right">
                 Type
               </TableHead>
-              <TableHead className="border-b border-gray-300 px-4 py-2">
+              <TableHead className="border-b border-gray-300 px-4 py-2 text-right">
                 Quantity
               </TableHead>
-              <TableHead className="border-b border-gray-300 px-4 py-2">
+              <TableHead className="border-b border-gray-300 px-4 py-2 text-right">
                 Purchase Price
               </TableHead>
             </TableRow>
@@ -89,7 +90,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
               <UserAssets
                 key={`${assets.name}` + index}
                 userAssets={assets}
-                isLastBorder={index === userPortfolio.length - 1}
+                isLastBorder={index === userAssets.length - 1}
               />
             ))}
           </TableBody>
