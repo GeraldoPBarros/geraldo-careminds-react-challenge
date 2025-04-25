@@ -8,18 +8,25 @@ import { formatNumber } from "@/lib/utils";
 interface UserPortfolioProps {
   userPortfolio: PortfolioProps;
   isLastBorder: boolean;
+  updateSelectedAsset: (value: string) => void;
 }
 
 export function UserWallets({
   userPortfolio,
   isLastBorder,
+  updateSelectedAsset,
 }: UserPortfolioProps) {
   return (
     <>
       {isLastBorder ? (
         <>
-          <TableRow>
-            <TableCell className="text-left px-4">{userPortfolio.walletName}</TableCell>
+          <TableRow
+            className="cursor-pointer"
+            onClick={() => updateSelectedAsset(userPortfolio.walletName)}
+          >
+            <TableCell className="text-left px-4">
+              {userPortfolio.walletName}
+            </TableCell>
             <TableCell className="text-right px-4">{`$${formatNumber(
               userPortfolio.currentAmount
             )}`}</TableCell>
@@ -30,7 +37,10 @@ export function UserWallets({
         </>
       ) : (
         <>
-          <TableRow>
+          <TableRow
+            className="cursor-pointer"
+            onClick={() => updateSelectedAsset(userPortfolio.walletName)}
+          >
             <TableCell className="text-left border-b border-gray-300 px-4">
               {userPortfolio.walletName}
             </TableCell>
