@@ -32,14 +32,15 @@ export const AuthProvider = ({ children }) => {
           const token = await firebaseUser.getIdToken(true);
           await setToken(token);
           toast.success("Success!");
+          setLoading(false);
           redirect("/portfolio");
         } else {
-          router.push("/login");
           setUser(null);
           sessionStorage.removeItem("user");
           await deleteToken();
+          setLoading(false);
+          redirect("login");
         }
-        setLoading(false);
       }
     );
     return () => unsubscribe();
@@ -73,19 +74,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    setLoading(true);
-    try {
+    try { 
       await signOut(FIREBASE_AUTH);
-      setUser(null);
-      sessionStorage.removeItem("user");
-      await deleteToken();
-      toast.success("Success!");
-      redirect("/login");
     } catch (error) {
       console.error(error);
       toast.error("Logout error: " + error.message);
-    } finally {
-      setLoading(false);
     }
   };
 
