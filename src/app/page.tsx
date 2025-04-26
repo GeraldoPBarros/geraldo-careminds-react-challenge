@@ -1,18 +1,20 @@
-import { UserPortfolio } from "@/components/portfolio/user-portfolio";
+"use client";
 
-export default async function Home() {
-  const response = await fetch(
-    "https://v0nr8pvsvgywhlm4.public.blob.vercel-storage.com/careminds/portfolio-j6Xaknu4XzSzazvXTjaNiYgFDx8yv8.json"
-  );
-  const portfolio = await response.json();
+import Portfolio from "@/app/portfolio/page";
+import { useAuth } from "./hooks/useAuth";
+import Login from "./login/page";
 
-  if (!response.ok) {
-    return <>Error fetching data!</>
+export default function Home() {
+  const { user } = useAuth();
+  let userSession = null;
+
+  if (typeof window !== "undefined") {
+    userSession = sessionStorage.getItem("user");
   }
 
-  return (
-    <div className="flex justify-items-center min-h-screen p-8 font-[family-name:var(--font-geist-sans)] bg-white">
-      <UserPortfolio userPortfolio={portfolio} />
-    </div>
-  );
+  if (!user && !userSession) {
+    return <Login />;
+  }
+
+  return <Portfolio />;
 }

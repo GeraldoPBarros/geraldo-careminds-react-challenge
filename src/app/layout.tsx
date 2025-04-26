@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
+import { AppProvider } from "@/app/hooks/index";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,18 +27,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <AppProvider>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header className="flex text-white text-center h-16 items-center justify-center">
-          <div className="w-[1260px] flex justify-start">
-            <label className="flex text-left text-3xl font-bold ml-32">
-              Investment Portfolio
-            </label>
-          </div>
-        </header>
         {children}
       </body>
+      </AppProvider>
     </html>
   );
 }

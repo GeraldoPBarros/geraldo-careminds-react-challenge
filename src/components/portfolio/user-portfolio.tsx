@@ -36,7 +36,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
   }, [selectedAsset]);
 
   return (
-    <div className="flex w-full justify-center">
+    <div className="flex w-full justify-center mt-8">
       <div className="flex flex-col w-[500px]">
         <label className="text-black text-2xl">Wallets</label>
         <Table className="mt-4 border border-gray-300 text-black rounded-lg border-separate max-w-[300px]">
