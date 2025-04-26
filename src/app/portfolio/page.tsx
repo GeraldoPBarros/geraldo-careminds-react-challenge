@@ -1,15 +1,17 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
 import { LogoutButton } from "@/components/portfolio/logout-button";
 import { UserPortfolio } from "@/components/portfolio/user-portfolio";
 
 export default async function Portfolio() {
-  const response = await fetch(
-    "https://v0nr8pvsvgywhlm4.public.blob.vercel-storage.com/careminds/portfolio-j6Xaknu4XzSzazvXTjaNiYgFDx8yv8.json"
-  );
-  const portfolio = await response.json();
+  const [portfolio, setPortfolio] = useState([]);
 
-  if (!response.ok) {
-    return <>Error fetching data!</>;
-  }
+  useEffect(() => {
+    fetch("/api/wallets")
+      .then((res) => res.json())
+      .then(setPortfolio);
+  }, []);
 
   return (
     <div className="flex flex-col justify-items-center w-full min-h-screen font-[family-name:var(--font-geist-sans)] bg-white relative">
