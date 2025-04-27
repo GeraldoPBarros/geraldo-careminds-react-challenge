@@ -1,17 +1,17 @@
 "use client";
 
-import React, { useState, useEffect, Profiler } from "react";
+import React, { useEffect, Profiler } from "react";
 import { LogoutButton } from "@/components/portfolio/logout-button";
 import { UserPortfolio } from "@/components/portfolio/user-portfolio";
-import { PortfolioProps } from "@/types/portfolio";
+
+import { usePortfolio } from "@/app/hooks/usePortfolio";
 
 export default function Portfolio() {
-  const [portfolio, setPortfolio] = useState<PortfolioProps[]>([]);
+
+  const { portfolio, getPortfolio } = usePortfolio();
 
   useEffect(() => {
-    fetch("/api/wallets")
-      .then((res) => res.json())
-      .then(setPortfolio);
+    getPortfolio();
   }, []);
 
   return (

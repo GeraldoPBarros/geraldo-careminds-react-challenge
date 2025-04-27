@@ -4,6 +4,7 @@ import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { PortfolioProps } from "@/types/portfolio";
 import { formatNumber } from "@/lib/utils";
+import { usePortfolio } from "@/app/hooks/usePortfolio";
 
 interface UserPortfolioProps {
   userPortfolio: PortfolioProps;
@@ -18,37 +19,21 @@ export function UserWallets({
   isSelected,
   updateSelectedAsset,
 }: UserPortfolioProps) {
+  const { updateWallet, deleteWallet } = usePortfolio();
+
   async function handleUpdateWallet() {
-    const response = await fetch("api/wallets", {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: userPortfolio.id,
-        walletName: "My new Wallet name",
-        currentAmount: userPortfolio.currentAmount,
-        spentAmount: userPortfolio.spentAmount,
-        profitLoss: userPortfolio.profitLoss,
-        assets: userPortfolio.assets
-      }),
-    });
-    console.log(response);
+    updateWallet(
+      userPortfolio.id,
+      "My new Wallet name",
+      userPortfolio.currentAmount,
+      userPortfolio.spentAmount,
+      userPortfolio.profitLoss,
+      userPortfolio.assets
+    );
   }
 
   async function handleDeleteWallet() {
-    const response = await fetch("api/wallets", {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: userPortfolio.id
-      }),
-    });
-    console.log(response);
+    deleteWallet(userPortfolio.id);
   }
 
   return (
@@ -72,11 +57,13 @@ export function UserWallets({
             <TableCell className="text-right px-4 ">{`$${formatNumber(
               userPortfolio.spentAmount
             )}`}</TableCell>
-            <TableCell
-              className="text-right px-4 "
-            >
-              <button className="cursor-pointer" onClick={handleUpdateWallet}>Edit</button>
-              <button className="cursor-pointer" onClick={handleDeleteWallet}>Delete</button>
+            <TableCell className="text-right px-4 ">
+              <button className="cursor-pointer" onClick={handleUpdateWallet}>
+                Edit
+              </button>
+              <button className="cursor-pointer" onClick={handleDeleteWallet}>
+                Delete
+              </button>
             </TableCell>
           </TableRow>
         </>
@@ -103,7 +90,12 @@ export function UserWallets({
               className="text-right px-4 "
               onClick={handleUpdateWallet}
             >
-              Edit
+              <button className="cursor-pointer" onClick={handleUpdateWallet}>
+                Edit
+              </button>
+              <button className="cursor-pointer" onClick={handleDeleteWallet}>
+                Delete
+              </button>
             </TableCell>
           </TableRow>
         </>

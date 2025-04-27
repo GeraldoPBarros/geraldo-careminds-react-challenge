@@ -8,13 +8,12 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { useRouter, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { setToken, deleteToken } from "@/app/actions/token";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -92,7 +91,7 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth deve ser usado dentro de um AuthProvider");
+    throw new Error("useAuth should be used inside of an AuthProvider");
   }
   return context;
 };

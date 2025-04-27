@@ -1,41 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { toast, ToastContainer } from "react-toastify";
-
 import { Button } from "@/components/ui/button";
 
-export function WalletForm() {
+import { PortfolioProps } from "@/types/portfolio";
+
+import { usePortfolio } from "@/app/hooks/usePortfolio";
+
+interface WalletFormProps {
+  isEditForm: boolean;
+  userPortfolio: PortfolioProps[];
+}
+
+export function WalletForm({ isEditForm, userPortfolio }: WalletFormProps) {
+  const { createNewWallet } = usePortfolio();
+
   const [walletName, setWalletName] = useState<string>("");
-  const [currentAmount, setCurrentAmount] = useState<string>("");
-  const [spentAmount, setSpentAmount] = useState<string>("");
-  const [profitLoss, setProfitLoss] = useState<string>("");
+  const [currentAmount, setCurrentAmount] = useState<number>(0);
+  const [spentAmount, setSpentAmount] = useState<number>(0);
+  const [profitLoss, setProfitLoss] = useState<number>(0);
+
+  useEffect(() => {}, [isEditForm]);
 
   const onSubmit = async () => {
-    try {
-      const response = await fetch("api/wallets", {
-        method: "POST",
-        body: JSON.stringify({
-          walletName: walletName,
-          currentAmount: Number(currentAmount),
-          spentAmount: Number(spentAmount),
-          profitLoss: Number(profitLoss),
-        }),
-      });
-
-      if (response.ok) {
-        toast.success("Wallet successfully added");
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
+    createNewWallet(
+      walletName,
+      currentAmount,
+      spentAmount,
+      profitLoss
+    );
   };
 
   return (
     <div className="grid gap-4 py-4">
-      <ToastContainer />
       <div className="grid grid-cols-4 items-center gap-4">
         <Label htmlFor="name" className="text-right">
           Wallet Name
@@ -53,9 +52,10 @@ export function WalletForm() {
         </Label>
         <Input
           id="name"
+          type="number"
           value={currentAmount}
           className="col-span-3"
-          onChange={(event) => setCurrentAmount(event.target.value)}
+          onChange={(event) => setCurrentAmount(Number(event.target.value))}
         />
       </div>
 
@@ -65,9 +65,10 @@ export function WalletForm() {
         </Label>
         <Input
           id="name"
+          type="number"
           value={spentAmount}
           className="col-span-3"
-          onChange={(event) => setSpentAmount(event.target.value)}
+          onChange={(event) => setSpentAmount(Number(event.target.value))}
         />
       </div>
 
@@ -77,9 +78,10 @@ export function WalletForm() {
         </Label>
         <Input
           id="name"
+          type="number"
           value={profitLoss}
           className="col-span-3"
-          onChange={(event) => setProfitLoss(event.target.value)}
+          onChange={(event) => setProfitLoss(Number(event.target.value))}
         />
       </div>
 

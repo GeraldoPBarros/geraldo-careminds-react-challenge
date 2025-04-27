@@ -154,6 +154,14 @@
       "spentAmount": 312312,
       "profitLoss": 31232,
       "assets": []
+    },
+    {
+      "id": "d7c8",
+      "walletName": "Teste 2",
+      "currentAmount": 3000,
+      "spentAmount": 1999,
+      "profitLoss": 1000,
+      "assets": []
     }
   ]
 }

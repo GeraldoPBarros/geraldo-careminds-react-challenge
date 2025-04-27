@@ -10,17 +10,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { PortfolioProps } from "@/types/portfolio";
+import { UserPortfolioProps } from "@/types/portfolio";
 import { UserWallets } from "@/components/wallets/user-wallets";
 import { UserAssets } from "@/components/assets/user-assets";
 
 import { UserAssets as UserAssetsProps } from "@/types/wallets";
 import FormDialog from "../ui/form-dialog";
 import { WalletForm } from "../wallet/wallet-form";
-
-interface UserPortfolioProps {
-  userPortfolio: PortfolioProps[];
-}
 
 export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
   const [userAssets, setUserAssets] = useState<UserAssetsProps[]>([]);
@@ -37,24 +33,6 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
       }
     }
   }, [selectedAsset]);
-
-  async function handleSubmit() {
-    // e.preventDefault();
-    const response = await fetch("api/wallets", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        walletName: "test",
-        currentAmount: 500,
-        spentAmount: 200,
-        profitLoss: 300,
-      }),
-    });
-    console.log(response);
-  }
 
   return (
     <div className="flex w-full justify-center mt-8">
@@ -133,7 +111,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
         isOpen={isWalletDialogOpen}
         onDismiss={() => setIsWalletDialogOpen(false)}
       >
-        <WalletForm />
+        <WalletForm isEditForm={false} userPortfolio={userPortfolio} />
       </FormDialog>
     </div>
   );
