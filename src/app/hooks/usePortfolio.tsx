@@ -1,6 +1,7 @@
 "use client";
 
 import { PortfolioContextType } from "@/types/portfolio";
+import { UserAssets } from "@/types/wallets";
 import React, { createContext, useContext, useState } from "react";
 
 import { toast } from "react-toastify";
@@ -9,6 +10,11 @@ const PortfolioContext = createContext<PortfolioContextType>({
   portfolio: [],
   selectedWalletId: "",
   loading: false,
+  isFormOpen: false,
+  isFormEditMode: false,
+  handleFormSelection: () => {},
+  handleFormEditMode: () => {},
+  handleFormOpen: () => {},
   getPortfolio: () => {},
   createNewWallet: () => {},
   updateWallet: () => {},
@@ -19,6 +25,20 @@ export const PortfolioProvider = ({ children }: any) => {
   const [portfolio, setPortfolio] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedWalletId, setSelectedWalletId] = useState<string>("");
+  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
+  const [isFormEditMode, setIsFormEditMode] = useState<boolean>(false);
+
+  const handleFormOpen = (status: boolean) => {
+    setIsFormOpen(status);
+  };
+
+  const handleFormEditMode = (status: boolean) => {
+    setIsFormEditMode(status);
+  };
+
+  const handleFormSelection = (id: string) => {
+    setSelectedWalletId(id);
+  };
 
   const getPortfolio = async () => {
     try {
@@ -65,7 +85,8 @@ export const PortfolioProvider = ({ children }: any) => {
     walletName: string,
     currentAmount: number,
     spentAmount: number,
-    profitLoss: number
+    profitLoss: number,
+    assets: UserAssets[]
   ) => {
     try {
       const response = await fetch("api/wallets", {
@@ -80,6 +101,7 @@ export const PortfolioProvider = ({ children }: any) => {
           currentAmount: currentAmount,
           spentAmount: spentAmount,
           profitLoss: profitLoss,
+          assets: assets,
         }),
       });
       if (response.ok) {
@@ -122,6 +144,11 @@ export const PortfolioProvider = ({ children }: any) => {
         createNewWallet,
         updateWallet,
         deleteWallet,
+        isFormEditMode,
+        isFormOpen,
+        handleFormOpen,
+        handleFormEditMode,
+        handleFormSelection,
       }}
     >
       {children}

@@ -17,11 +17,14 @@ import { UserAssets } from "@/components/assets/user-assets";
 import { UserAssets as UserAssetsProps } from "@/types/wallets";
 import FormDialog from "../ui/form-dialog";
 import { WalletForm } from "../wallet/wallet-form";
+import { usePortfolio } from "@/app/hooks/usePortfolio";
 
 export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
+  const { isFormEditMode, isFormOpen, handleFormOpen, handleFormEditMode } =
+    usePortfolio();
+
   const [userAssets, setUserAssets] = useState<UserAssetsProps[]>([]);
   const [selectedAsset, setSelectedAsset] = useState<string>("");
-  const [isWalletDialogOpen, setIsWalletDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (selectedAsset !== "") {
@@ -34,14 +37,19 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
     }
   }, [selectedAsset]);
 
+  async function onOpenDialog() {
+    handleFormEditMode(false);
+    handleFormOpen(true);
+  }
+
   return (
     <div className="flex w-full justify-center mt-8">
-      <div className="flex flex-col w-[500px]">
+      <div className="flex flex-col w-[600px]">
         <div className="flex justify-between">
           <label className="text-black text-2xl">Wallets</label>
           <button
             className="w-[50px] bg-gray-700 hover:bg-gray-800 text-white cursor-pointer rounded-lg mr-8"
-            onClick={() => setIsWalletDialogOpen(true)}
+            onClick={() => onOpenDialog()}
           >
             Add
           </button>
@@ -107,11 +115,11 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
         </Table>
       </div>
       <FormDialog
-        title="Insert new Wallet"
-        isOpen={isWalletDialogOpen}
-        onDismiss={() => setIsWalletDialogOpen(false)}
+        title={`${isFormEditMode ? "Update" : "Insert"} wallet`}
+        isOpen={isFormOpen}
+        onDismiss={() => handleFormOpen(false)}
       >
-        <WalletForm isEditForm={false} userPortfolio={userPortfolio} />
+        <WalletForm userPortfolio={userPortfolio} />
       </FormDialog>
     </div>
   );

@@ -19,20 +19,21 @@ export function UserWallets({
   isSelected,
   updateSelectedAsset,
 }: UserPortfolioProps) {
-  const { updateWallet, deleteWallet } = usePortfolio();
+  const {
+    deleteWallet,
+    handleFormEditMode,
+    handleFormOpen,
+    handleFormSelection,
+  } = usePortfolio();
 
   async function handleUpdateWallet() {
-    updateWallet(
-      userPortfolio.id,
-      "My new Wallet name",
-      userPortfolio.currentAmount,
-      userPortfolio.spentAmount,
-      userPortfolio.profitLoss,
-      userPortfolio.assets
-    );
+    handleFormEditMode(true);
+    handleFormSelection(userPortfolio.id);
+    handleFormOpen(true);
   }
 
   async function handleDeleteWallet() {
+    handleFormOpen(false);
     deleteWallet(userPortfolio.id);
   }
 
@@ -49,7 +50,7 @@ export function UserWallets({
                 isSelected ? "font-bold" : "font-normal"
               }`}
             >
-              {userPortfolio.walletName}
+              <p className="text-wrap w-[150px]">{userPortfolio.walletName}</p>
             </TableCell>
             <TableCell className="text-right px-4">{`$${formatNumber(
               userPortfolio.currentAmount
@@ -58,10 +59,16 @@ export function UserWallets({
               userPortfolio.spentAmount
             )}`}</TableCell>
             <TableCell className="text-right px-4 ">
-              <button className="cursor-pointer" onClick={handleUpdateWallet}>
+              <button
+                className="cursor-pointer underline"
+                onClick={() => handleUpdateWallet()}
+              >
                 Edit
               </button>
-              <button className="cursor-pointer" onClick={handleDeleteWallet}>
+              <button
+                className="cursor-pointer ml-2 underline"
+                onClick={() => handleDeleteWallet()}
+              >
                 Delete
               </button>
             </TableCell>
@@ -78,7 +85,7 @@ export function UserWallets({
                 isSelected ? "font-bold" : "font-normal"
               }`}
             >
-              {userPortfolio.walletName}
+              <p className="text-wrap w-[150px]">{userPortfolio.walletName}</p>
             </TableCell>
             <TableCell className="text-right border-b border-gray-300 px-4">{`$${formatNumber(
               userPortfolio.currentAmount
@@ -86,14 +93,17 @@ export function UserWallets({
             <TableCell className="text-right border-b border-gray-300 px-4">{`$${formatNumber(
               userPortfolio.spentAmount
             )}`}</TableCell>
-            <TableCell
-              className="text-right px-4 "
-              onClick={handleUpdateWallet}
-            >
-              <button className="cursor-pointer" onClick={handleUpdateWallet}>
+            <TableCell className="text-right px-4 border-b border-gray-300">
+              <button
+                className="cursor-pointer underline"
+                onClick={() => handleUpdateWallet()}
+              >
                 Edit
               </button>
-              <button className="cursor-pointer" onClick={handleDeleteWallet}>
+              <button
+                className="cursor-pointer ml-2 underline"
+                onClick={() => handleDeleteWallet()}
+              >
                 Delete
               </button>
             </TableCell>

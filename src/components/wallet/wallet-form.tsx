@@ -10,28 +10,67 @@ import { PortfolioProps } from "@/types/portfolio";
 import { usePortfolio } from "@/app/hooks/usePortfolio";
 
 interface WalletFormProps {
-  isEditForm: boolean;
   userPortfolio: PortfolioProps[];
 }
 
-export function WalletForm({ isEditForm, userPortfolio }: WalletFormProps) {
-  const { createNewWallet } = usePortfolio();
+export function WalletForm({ userPortfolio }: WalletFormProps) {
+  const {
+    createNewWallet,
+    selectedWalletId,
+    handleFormOpen,
+    isFormEditMode,
+    updateWallet,
+  } = usePortfolio();
 
   const [walletName, setWalletName] = useState<string>("");
   const [currentAmount, setCurrentAmount] = useState<number>(0);
   const [spentAmount, setSpentAmount] = useState<number>(0);
   const [profitLoss, setProfitLoss] = useState<number>(0);
 
-  useEffect(() => {}, [isEditForm]);
+  useEffect(() => {
+    console.log("ISEDITFORM: ", isFormEditMode);
+    if (isFormEditMode) {
+      const newFormData = userPortfolio.find(
+        (portfolio) => portfolio.id === selectedWalletId
+      );
+      console.log("NEWFORMDATA: ", newFormData);
+      if (newFormData !== undefined) {
+        setWalletName(newFormData.walletName);
+        setCurrentAmount(newFormData.currentAmount);
+        setSpentAmount(newFormData.spentAmount);
+        setProfitLoss(newFormData.profitLoss);
+      }
+    } else {
+      cleanFormData();
+    }
+  }, [isFormEditMode]);
 
   const onSubmit = async () => {
-    createNewWallet(
-      walletName,
-      currentAmount,
-      spentAmount,
-      profitLoss
-    );
+    if (!isFormEditMode) {
+      createNewWallet(walletName, currentAmount, spentAmount, profitLoss);
+    } else {
+      const selectedPortfolio = userPortfolio.find(
+        (portfolio) => portfolio.id === selectedWalletId
+      );
+      updateWallet(
+        selectedWalletId,
+        walletName,
+        currentAmount,
+        spentAmount,
+        profitLoss,
+        selectedPortfolio!.assets
+      );
+    }
+    handleFormOpen(false);
+    cleanFormData();
   };
+
+  function cleanFormData() {
+    setWalletName("");
+    setCurrentAmount(0);
+    setSpentAmount(0);
+    setProfitLoss(0);
+  }
 
   return (
     <div className="grid gap-4 py-4">

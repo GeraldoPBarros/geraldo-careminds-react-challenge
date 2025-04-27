@@ -17,6 +17,11 @@ export interface PortfolioContextType {
   portfolio: PortfolioProps[];
   loading: boolean;
   selectedWalletId: string;
+  isFormEditMode: boolean;
+  handleFormSelection: (id: string) => void;
+  handleFormEditMode: (status: boolean) => void;
+  isFormOpen: boolean;
+  handleFormOpen: (status: boolean) => void;
   getPortfolio: () => void;
   createNewWallet: (
     walletName: string,

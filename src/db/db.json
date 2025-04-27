@@ -124,43 +124,35 @@
       ]
     },
     {
-      "id": "06c7",
-      "walletName": "My new Wallet",
-      "currentAmount": 2000,
-      "spentAmount": 3000,
-      "profitLoss": 10000,
-      "assets": []
+      "walletName": "My new wallet 2",
+      "currentAmount": 163429,
+      "spentAmount": 13123,
+      "profitLoss": 45535,
+      "assets": [],
+      "id": "7b06"
     },
     {
-      "id": "5b6d",
-      "walletName": "Wallet test",
-      "currentAmount": 3300,
-      "spentAmount": 2100,
-      "profitLoss": 4100,
-      "assets": []
-    },
-    {
-      "id": "a78e",
-      "walletName": "Crypto 2",
-      "currentAmount": 15000,
-      "spentAmount": 3200,
-      "profitLoss": 10000,
-      "assets": []
-    },
-    {
-      "id": "6120",
-      "walletName": "Test",
+      "id": "cc3c",
+      "walletName": "Teste wallet",
       "currentAmount": 123123,
-      "spentAmount": 312312,
-      "profitLoss": 31232,
+      "spentAmount": 123320,
+      "profitLoss": 43240,
       "assets": []
     },
     {
-      "id": "d7c8",
-      "walletName": "Teste 2",
-      "currentAmount": 3000,
-      "spentAmount": 1999,
-      "profitLoss": 1000,
+      "id": "a214",
+      "walletName": "New wallet test",
+      "currentAmount": 123,
+      "spentAmount": 123,
+      "profitLoss": 123,
+      "assets": []
+    },
+    {
+      "id": "220b",
+      "walletName": "My new and big wallet name for test the table, test teste and test",
+      "currentAmount": 123,
+      "spentAmount": 123,
+      "profitLoss": 123,
       "assets": []
     }
   ]
