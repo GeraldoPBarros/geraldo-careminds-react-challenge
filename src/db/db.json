@@ -122,6 +122,38 @@
           "currentPrice": 1.2
         }
       ]
+    },
+    {
+      "id": "06c7",
+      "walletName": "My new Wallet",
+      "currentAmount": 2000,
+      "spentAmount": 3000,
+      "profitLoss": 10000,
+      "assets": []
+    },
+    {
+      "id": "5b6d",
+      "walletName": "Wallet test",
+      "currentAmount": 3300,
+      "spentAmount": 2100,
+      "profitLoss": 4100,
+      "assets": []
+    },
+    {
+      "id": "a78e",
+      "walletName": "Crypto 2",
+      "currentAmount": 15000,
+      "spentAmount": 3200,
+      "profitLoss": 10000,
+      "assets": []
+    },
+    {
+      "id": "6120",
+      "walletName": "Test",
+      "currentAmount": 123123,
+      "spentAmount": 312312,
+      "profitLoss": 31232,
+      "assets": []
     }
   ]
 }

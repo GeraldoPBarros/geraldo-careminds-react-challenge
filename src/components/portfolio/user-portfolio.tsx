@@ -15,6 +15,8 @@ import { UserWallets } from "@/components/wallets/user-wallets";
 import { UserAssets } from "@/components/assets/user-assets";
 
 import { UserAssets as UserAssetsProps } from "@/types/wallets";
+import FormDialog from "../ui/form-dialog";
+import { WalletForm } from "../wallet/wallet-form";
 
 interface UserPortfolioProps {
   userPortfolio: PortfolioProps[];
@@ -23,6 +25,7 @@ interface UserPortfolioProps {
 export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
   const [userAssets, setUserAssets] = useState<UserAssetsProps[]>([]);
   const [selectedAsset, setSelectedAsset] = useState<string>("");
+  const [isWalletDialogOpen, setIsWalletDialogOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (selectedAsset !== "") {
@@ -60,7 +63,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
           <label className="text-black text-2xl">Wallets</label>
           <button
             className="w-[50px] bg-gray-700 hover:bg-gray-800 text-white cursor-pointer rounded-lg mr-8"
-            onClick={handleSubmit}
+            onClick={() => setIsWalletDialogOpen(true)}
           >
             Add
           </button>
@@ -125,6 +128,13 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
           </TableBody>
         </Table>
       </div>
+      <FormDialog
+        title="Insert new Wallet"
+        isOpen={isWalletDialogOpen}
+        onDismiss={() => setIsWalletDialogOpen(false)}
+      >
+        <WalletForm />
+      </FormDialog>
     </div>
   );
 }
