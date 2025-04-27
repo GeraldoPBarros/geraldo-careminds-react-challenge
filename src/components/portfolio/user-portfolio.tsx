@@ -35,13 +35,39 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
     }
   }, [selectedAsset]);
 
+  async function handleSubmit() {
+    // e.preventDefault();
+    const response = await fetch("api/wallets", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "test",
+        currentBalance: "current",
+        spentAmount: 200,
+        profitLoss: 300,
+      }),
+    });
+    console.log(response);
+  }
+
   return (
     <div className="flex w-full justify-center mt-8">
       <div className="flex flex-col w-[500px]">
-        <label className="text-black text-2xl">Wallets</label>
+        <div className="flex justify-between">
+          <label className="text-black text-2xl">Wallets</label>
+          <button
+            className="w-[50px] bg-gray-700 hover:bg-gray-800 text-white cursor-pointer rounded-lg mr-8"
+            onClick={handleSubmit}
+          >
+            Add
+          </button>
+        </div>
         <Table className="mt-4 border border-gray-300 text-black rounded-lg border-separate max-w-[300px]">
           <TableHeader className="bg-gray-50">
-            <TableRow >
+            <TableRow>
               <TableHead className="border-b border-gray-300 px-4 py-2">
                 Name
               </TableHead>

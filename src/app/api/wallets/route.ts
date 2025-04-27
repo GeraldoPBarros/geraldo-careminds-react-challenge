@@ -2,8 +2,10 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const wallets = await fetch("http://localhost:3333/wallets");
-    return NextResponse.json(wallets);
+    const wallets = await fetch("http://localhost:5000/wallets");
+    const walletsData = await wallets.json();
+
+    return NextResponse.json(walletsData);
   } catch (error) {
     console.error("Database error: ", error);
     return NextResponse.json(
@@ -15,10 +17,10 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { name, currentBalance, spentAmout, profitLoss } =
+    const { name, currentBalance, spentAmount, profitLoss } =
       await request.json();
 
-    if (!name || !currentBalance || !spentAmout || !profitLoss) {
+    if (!name || !currentBalance || !spentAmount || !profitLoss) {
       return NextResponse.json(
         {
           error:
@@ -31,11 +33,11 @@ export async function POST(request: Request) {
     const walletsData = {
       name,
       currentBalance,
-      spentAmout,
+      spentAmount,
       profitLoss,
     };
 
-    await fetch("http://localhost:3333/wallets", {
+    await fetch("http://localhost:5000/wallets", {
       method: "POST",
       headers: {
         Accept: "application/json",
