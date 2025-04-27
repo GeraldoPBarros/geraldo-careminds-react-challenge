@@ -44,8 +44,8 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "test",
-        currentBalance: "current",
+        walletName: "test",
+        currentAmount: 500,
         spentAmount: 200,
         profitLoss: 300,
       }),
@@ -76,6 +76,9 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
               </TableHead>
               <TableHead className="border-b border-gray-300 px-4 py-2">
                 Spent Amount
+              </TableHead>
+              <TableHead className="border-b border-gray-300 px-4 py-2">
+                Action
               </TableHead>
             </TableRow>
           </TableHeader>

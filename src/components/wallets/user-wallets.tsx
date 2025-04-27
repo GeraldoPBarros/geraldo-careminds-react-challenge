@@ -18,7 +18,38 @@ export function UserWallets({
   isSelected,
   updateSelectedAsset,
 }: UserPortfolioProps) {
-  console.log(isSelected);
+  async function handleUpdateWallet() {
+    const response = await fetch("api/wallets", {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: userPortfolio.id,
+        walletName: "My new Wallet name",
+        currentAmount: userPortfolio.currentAmount,
+        spentAmount: userPortfolio.spentAmount,
+        profitLoss: userPortfolio.profitLoss,
+        assets: userPortfolio.assets
+      }),
+    });
+    console.log(response);
+  }
+
+  async function handleDeleteWallet() {
+    const response = await fetch("api/wallets", {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: userPortfolio.id
+      }),
+    });
+    console.log(response);
+  }
 
   return (
     <>
@@ -41,6 +72,12 @@ export function UserWallets({
             <TableCell className="text-right px-4 ">{`$${formatNumber(
               userPortfolio.spentAmount
             )}`}</TableCell>
+            <TableCell
+              className="text-right px-4 "
+            >
+              <button className="cursor-pointer" onClick={handleUpdateWallet}>Edit</button>
+              <button className="cursor-pointer" onClick={handleDeleteWallet}>Delete</button>
+            </TableCell>
           </TableRow>
         </>
       ) : (
@@ -62,6 +99,12 @@ export function UserWallets({
             <TableCell className="text-right border-b border-gray-300 px-4">{`$${formatNumber(
               userPortfolio.spentAmount
             )}`}</TableCell>
+            <TableCell
+              className="text-right px-4 "
+              onClick={handleUpdateWallet}
+            >
+              Edit
+            </TableCell>
           </TableRow>
         </>
       )}

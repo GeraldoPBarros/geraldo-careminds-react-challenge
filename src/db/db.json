@@ -122,13 +122,6 @@
           "currentPrice": 1.2
         }
       ]
-    },
-    {
-      "id": "c753",
-      "name": "test",
-      "currentBalance": "current",
-      "spentAmount": 200,
-      "profitLoss": 300
     }
   ]
 }

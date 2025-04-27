@@ -17,10 +17,10 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { name, currentBalance, spentAmount, profitLoss } =
+    const { walletName, currentAmount, spentAmount, profitLoss } =
       await request.json();
 
-    if (!name || !currentBalance || !spentAmount || !profitLoss) {
+    if (!walletName || !currentAmount || !spentAmount || !profitLoss) {
       return NextResponse.json(
         {
           error:
@@ -31,10 +31,11 @@ export async function POST(request: Request) {
     }
 
     const walletsData = {
-      name,
-      currentBalance,
+      walletName,
+      currentAmount,
       spentAmount,
       profitLoss,
+      assets: []
     };
 
     await fetch("http://localhost:5000/wallets", {
@@ -60,16 +61,14 @@ export async function POST(request: Request) {
   }
 }
 
-export async function PUT(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: Request) {
   try {
-    const { id } = params;
-    const { name, currentBalance, spentAmout, profitLoss } =
-    await request.json();
+    const { id, walletName, currentAmount, spentAmount, profitLoss, assets } =
+      await request.json();
 
-    if (!name || !currentBalance || !spentAmout || !profitLoss) {
+    console.log("HERE: ", id, walletName, currentAmount, spentAmount, profitLoss);
+
+    if (!walletName || !currentAmount || !spentAmount || !profitLoss || !assets) {
       return NextResponse.json(
         {
           error:
@@ -79,14 +78,22 @@ export async function PUT(
       );
     }
 
-    // const result = null;
+    const walletsData = {
+      walletName,
+      currentAmount,
+      spentAmount,
+      profitLoss,
+      assets
+    };
 
-    // if (result.length === 0) {
-    //   return NextResponse.json(
-    //     { error: "User not found or no changes applied" },
-    //     { status: 404 }
-    //   );
-    // }
+    await fetch(`http://localhost:5000/wallets/${id}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(walletsData),
+    });
 
     return NextResponse.json({ message: "User updated successfully" });
   } catch (error) {
@@ -98,24 +105,29 @@ export async function PUT(
   }
 }
 
-export async function DELETE({ params }: { params: { id: string } }) {
-  const { id } = params;
+export async function DELETE(request: Request) {
 
   try {
-    const response = await fetch(`http://localhost:3333/wallets?id=${id}`, {
+
+    const { id } = await request.json();
+
+    console.log("HERE: ", id);
+
+    if (!id) {
+      return NextResponse.json(
+        {
+          error:
+            "Missing required fields: name, currentBalance, spentAmount, profitLoss",
+        },
+        { status: 400 }
+      );
+    }
+
+    await fetch(`http://localhost:5000/wallets/${id}`, {
       method: "DELETE",
     });
 
-    if (response.ok) {
-      const responseData = await response.json();
-      console.log(
-        "deleteSupabaseItem - ResponseOK - data deleted",
-        responseData
-      );
-    } else {
-      const responseData = await response.json();
-      console.log("deleteSupabaseItem - Response not OK", responseData);
-    }
+    return NextResponse.json({ message: "Wallet deleted successfully" });
   } catch (error) {
     console.error("Error deleting wallet: ", error);
 
