@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, Profiler, useCallback } from "react";
+import React, { useState, useEffect, Profiler } from "react";
 
 import {
   Table,
