@@ -8,24 +8,25 @@ import { Label } from "@/components/ui/label";
 
 import { Button } from "@/components/ui/button";
 
-import { UserAssets } from "@/types/user-assets";
+import { UserAssets } from "@/types/user-assets-types";
 
 import { useAsset } from "@/app/hooks/useAsset";
-import { usePortfolio } from "@/app/hooks/usePortfolio";
-import { PortfolioProps } from "@/types/portfolio";
+import { PortfolioProps } from "@/types/portfolio-types";
 
 interface AssetsFormProps {
   userPortfolio: PortfolioProps[];
   selectedWalletId: string;
 }
 
-export function AssetForm({ userPortfolio, selectedWalletId }: AssetsFormProps) {
+export function AssetForm({
+  userPortfolio,
+  selectedWalletId,
+}: AssetsFormProps) {
   const {
-    createNewAsset,
+    updatePortfolioAsset,
     selectedAssetId,
     handleFormAssetOpen,
     isFormAssetEditMode,
-    updateAsset,
   } = useAsset();
 
   const [assetName, setAssetName] = useState<string>("");
@@ -79,7 +80,7 @@ export function AssetForm({ userPortfolio, selectedWalletId }: AssetsFormProps) 
           ...selectedWallet.assets,
           selectedAsset,
         ];
-        createNewAsset(
+        updatePortfolioAsset(
           selectedWalletId,
           selectedWallet.walletName,
           selectedWallet.currentAmount,
@@ -105,7 +106,7 @@ export function AssetForm({ userPortfolio, selectedWalletId }: AssetsFormProps) 
           }
         });
 
-        updateAsset(
+        updatePortfolioAsset(
           selectedWalletId,
           selectedWallet.walletName,
           selectedWallet.currentAmount,

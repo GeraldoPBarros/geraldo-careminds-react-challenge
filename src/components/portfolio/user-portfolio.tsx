@@ -10,11 +10,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { UserPortfolioProps } from "@/types/portfolio";
+import { UserPortfolioProps } from "@/types/portfolio-types";
 import { UserWallets } from "@/components/user-wallets/user-wallets";
 import { UserAssets } from "@/components/user-assets/user-assets";
 
-import { UserAssets as UserAssetsProps } from "@/types/user-assets";
+import { UserAssets as UserAssetsProps } from "@/types/user-assets-types";
 import FormDialog from "../ui/form-dialog";
 import { WalletForm } from "../wallet-form/wallet-form";
 import { usePortfolio } from "@/app/hooks/usePortfolio";
@@ -73,7 +73,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
   }
 
   return (
-    <div className="flex w-full justify-center mt-8">
+    <div className="flex max-sm:flex-col  w-full justify-center mt-8">
       <div className="flex flex-col w-[600px]">
         <div className="flex justify-between">
           <label className="text-black text-2xl">Wallets</label>
@@ -114,7 +114,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
           </TableBody>
         </Table>
       </div>
-      <div className="flex flex-col w-[500px]">
+      <div className="flex flex-col w-[600px]">
         <div className="flex justify-between">
           <label className="text-black text-2xl">Assets</label>
           <button

@@ -1,4 +1,4 @@
-import { UserAssets } from "./user-assets";
+import { UserAssets } from "./user-assets-types";
 
 export interface PortfolioProps {
   id: string;

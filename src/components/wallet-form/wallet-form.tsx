@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 
 import { Button } from "@/components/ui/button";
 
-import { PortfolioProps } from "@/types/portfolio";
+import { PortfolioProps } from "@/types/portfolio-types";
 
 import { usePortfolio } from "@/app/hooks/usePortfolio";
 

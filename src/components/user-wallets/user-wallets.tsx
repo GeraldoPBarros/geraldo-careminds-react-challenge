@@ -2,7 +2,7 @@
 
 import React from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { PortfolioProps } from "@/types/portfolio";
+import { PortfolioProps } from "@/types/portfolio-types";
 import { formatNumber } from "@/lib/utils";
 import { usePortfolio } from "@/app/hooks/usePortfolio";
 

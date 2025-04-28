@@ -145,19 +145,19 @@
           "id": "612f1289-9d73-44bf-8414-abbca32b737e",
           "type": "dasdsa",
           "symbol": "dasdasd",
-          "name": "dasdasdasd",
+          "name": "Crypto Wallet",
           "currentPrice": 123,
           "purchasePrice": 123123,
           "quantity": 214124
         },
         {
-          "id": "639d067b-3fe3-4362-aa88-25a828502f6e",
-          "type": "afsdas d",
-          "symbol": "asdas asdasd",
-          "name": "My new asset",
-          "currentPrice": 123123,
-          "purchasePrice": 15321,
-          "quantity": 352
+          "id": "2bd85af6-b7d0-461e-9141-74e707f35267",
+          "type": "Investment",
+          "symbol": "Test",
+          "name": "My new and big name asset",
+          "currentPrice": 12312,
+          "purchasePrice": 123123,
+          "quantity": 534
         }
       ],
       "id": "7b06"
@@ -194,6 +194,14 @@
       "currentAmount": 213123,
       "spentAmount": 321321,
       "profitLoss": 213,
+      "assets": []
+    },
+    {
+      "id": "805c",
+      "walletName": "teste",
+      "currentAmount": 123123,
+      "spentAmount": 312321,
+      "profitLoss": 213123,
       "assets": []
     }
   ]

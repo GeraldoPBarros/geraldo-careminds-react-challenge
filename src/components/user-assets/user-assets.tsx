@@ -5,12 +5,12 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import {
   UserAssets as Assets,
   UserAssets as UserAssetsType,
-} from "@/types/user-assets";
+} from "@/types/user-assets-types";
 
 import { checkNumberAndUpdateToComma, formatNumber } from "@/lib/utils";
 
 import { useAsset } from "@/app/hooks/useAsset";
-import { PortfolioProps } from "@/types/portfolio";
+import { PortfolioProps } from "@/types/portfolio-types";
 import { usePortfolio } from "@/app/hooks/usePortfolio";
 
 interface UserAssetsProps {
@@ -25,7 +25,7 @@ export function UserAssets({
   isLastBorder,
 }: UserAssetsProps) {
   const {
-    deleteAsset,
+    updatePortfolioAsset,
     handleFormAssetEditMode,
     handleFormAssetOpen,
     handleFormAssetIdSelection,
@@ -51,7 +51,7 @@ export function UserAssets({
           newAssetData.push(asset);
         }
       });
-      deleteAsset(
+      updatePortfolioAsset(
         selectedWalletId,
         selectedWallet.walletName,
         selectedWallet.currentAmount,
@@ -66,7 +66,9 @@ export function UserAssets({
       {isLastBorder ? (
         <>
           <TableRow>
-            <TableCell className="text-left px-4">{userAssets.name}</TableCell>
+            <TableCell className="text-left px-4">
+              <p className="text-wrap w-[120px]">{userAssets.name}</p>
+            </TableCell>
             <TableCell className="text-right px-4">{userAssets.type}</TableCell>
             <TableCell className="text-right px-4">
               {userAssets.quantity}
@@ -94,7 +96,7 @@ export function UserAssets({
         <>
           <TableRow>
             <TableCell className="text-left border-b border-gray-300 px-4">
-              {userAssets.name}
+              <p className="text-wrap w-[120px]">{userAssets.name}</p>
             </TableCell>
             <TableCell className="text-right border-b border-gray-300 px-4">
               {userAssets.type}

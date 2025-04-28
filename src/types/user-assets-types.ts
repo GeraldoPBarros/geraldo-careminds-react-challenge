@@ -1,4 +1,4 @@
-import { PortfolioProps } from "./portfolio";
+import { PortfolioProps } from "./portfolio-types";
 
 export interface UserAssets {
   id: string;
@@ -27,23 +27,7 @@ export interface AssetContextType {
   handleFormAssetEditMode: (status: boolean) => void;
   isFormAssetOpen: boolean;
   handleFormAssetOpen: (status: boolean) => void;
-  createNewAsset: (
-    id: string,
-    walletName: string,
-    currentAmount: number,
-    spentAmount: number,
-    profitLoss: number,
-    assets: UserAssets[]
-  ) => void;
-  updateAsset: (
-    id: string,
-    walletName: string,
-    currentAmount: number,
-    spentAmount: number,
-    profitLoss: number,
-    assets: UserAssets[]
-  ) => void;
-  deleteAsset: (
+  updatePortfolioAsset: (
     id: string,
     walletName: string,
     currentAmount: number,

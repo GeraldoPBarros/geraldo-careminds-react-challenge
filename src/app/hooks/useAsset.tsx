@@ -1,6 +1,6 @@
 "use client";
 
-import { AssetContextType, UserAssets } from "@/types/user-assets";
+import { AssetContextType, UserAssets } from "@/types/user-assets-types";
 import React, { createContext, useContext, useState } from "react";
 
 import { toast } from "react-toastify";
@@ -14,9 +14,7 @@ const AssetContext = createContext<AssetContextType>({
   handleFormAssetIdSelection: () => {},
   handleFormAssetEditMode: () => {},
   handleFormAssetOpen: () => {},
-  createNewAsset: () => {},
-  updateAsset: () => {},
-  deleteAsset: () => {},
+  updatePortfolioAsset: () => {},
 });
 
 export const AssetProvider = ({ children }: any) => {
@@ -40,41 +38,7 @@ export const AssetProvider = ({ children }: any) => {
     setSelectedAssetId(id);
   };
 
-  const createNewAsset = async (
-    id: string,
-    walletName: string,
-    currentAmount: number,
-    spentAmount: number,
-    profitLoss: number,
-    assets: UserAssets[]
-  ) => {
-    try {
-      const response = await fetch("api/assets", {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: id,
-          walletName: walletName,
-          currentAmount: currentAmount,
-          spentAmount: spentAmount,
-          profitLoss: profitLoss,
-          assets: assets,
-        }),
-      });
-      console.log(response);
-      if (response.ok) {
-        toast.success("Asset successfully added");
-        getPortfolio();
-      }
-    } catch (error) {
-      console.log("Error:", error);
-    }
-  };
-
-  const updateAsset = async (
+  const updatePortfolioAsset = async (
     id: string,
     walletName: string,
     currentAmount: number,
@@ -107,47 +71,12 @@ export const AssetProvider = ({ children }: any) => {
     }
   };
 
-  const deleteAsset = async (
-    id: string,
-    walletName: string,
-    currentAmount: number,
-    spentAmount: number,
-    profitLoss: number,
-    assets: UserAssets[]
-  ) => {
-    try {
-      const response = await fetch("api/wallets", {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: id,
-          walletName: walletName,
-          currentAmount: currentAmount,
-          spentAmount: spentAmount,
-          profitLoss: profitLoss,
-          assets: assets,
-        }),
-      });
-      if (response.ok) {
-        toast.success("Wallet deleted successfully");
-        getPortfolio();
-      }
-    } catch (error) {
-      console.error("Error: ", error);
-    }
-  };
-
   return (
     <AssetContext.Provider
       value={{
         loading,
         selectedAssetId,
-        createNewAsset,
-        updateAsset,
-        deleteAsset,
+        updatePortfolioAsset,
         isFormAssetEditMode,
         isFormAssetOpen,
         handleFormAssetOpen,

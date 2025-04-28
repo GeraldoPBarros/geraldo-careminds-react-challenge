@@ -1,7 +1,7 @@
 "use client";
 
-import { PortfolioContextType } from "@/types/portfolio";
-import { UserAssets } from "@/types/user-assets";
+import { PortfolioContextType } from "@/types/portfolio-types";
+import { UserAssets } from "@/types/user-assets-types";
 import React, { createContext, useContext, useState } from "react";
 
 import { toast } from "react-toastify";
