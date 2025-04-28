@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Profiler, useCallback } from "react";
 
 import {
   Table,
@@ -11,35 +11,65 @@ import {
 } from "@/components/ui/table";
 
 import { UserPortfolioProps } from "@/types/portfolio";
-import { UserWallets } from "@/components/wallets/user-wallets";
-import { UserAssets } from "@/components/assets/user-assets";
+import { UserWallets } from "@/components/user-wallets/user-wallets";
+import { UserAssets } from "@/components/user-assets/user-assets";
 
-import { UserAssets as UserAssetsProps } from "@/types/wallets";
+import { UserAssets as UserAssetsProps } from "@/types/user-assets";
 import FormDialog from "../ui/form-dialog";
-import { WalletForm } from "../wallet/wallet-form";
+import { WalletForm } from "../wallet-form/wallet-form";
 import { usePortfolio } from "@/app/hooks/usePortfolio";
+import { AssetForm } from "../asset-form/asset-form";
+import { useAsset } from "@/app/hooks/useAsset";
 
 export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
-  const { isFormEditMode, isFormOpen, handleFormOpen, handleFormEditMode } =
-    usePortfolio();
+  const {
+    isFormEditMode,
+    isFormOpen,
+    handleFormOpen,
+    handleFormEditMode,
+    selectedWalletId,
+  } = usePortfolio();
+
+  const {
+    isFormAssetEditMode,
+    isFormAssetOpen,
+    handleFormAssetOpen,
+    handleFormAssetEditMode,
+  } = useAsset();
 
   const [userAssets, setUserAssets] = useState<UserAssetsProps[]>([]);
-  const [selectedAsset, setSelectedAsset] = useState<string>("");
+  const [selectedUserWallet, setSelectedUserWallet] = useState<string>("");
 
   useEffect(() => {
-    if (selectedAsset !== "") {
+    if (selectedUserWallet !== "") {
       const newSelectedUserAssets = userPortfolio.find(
-        (portfolio) => portfolio.walletName === selectedAsset
+        (portfolio) => portfolio.walletName === selectedUserWallet
       );
       if (newSelectedUserAssets !== undefined) {
         setUserAssets(newSelectedUserAssets?.assets);
       }
     }
-  }, [selectedAsset]);
+  }, [selectedUserWallet]);
 
-  async function onOpenDialog() {
+  useEffect(() => {
+    if (selectedUserWallet !== "") {
+      const newSelectedUserAssets = userPortfolio.find(
+        (portfolio) => portfolio.walletName === selectedUserWallet
+      );
+      if (newSelectedUserAssets !== undefined) {
+        setUserAssets(newSelectedUserAssets?.assets);
+      }
+    }
+  }, [userPortfolio]);
+
+  async function onOpenWalletDialog() {
     handleFormEditMode(false);
     handleFormOpen(true);
+  }
+
+  async function onOpenAssetDialog() {
+    handleFormAssetEditMode(false);
+    handleFormAssetOpen(true);
   }
 
   return (
@@ -49,7 +79,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
           <label className="text-black text-2xl">Wallets</label>
           <button
             className="w-[50px] bg-gray-700 hover:bg-gray-800 text-white cursor-pointer rounded-lg mr-8"
-            onClick={() => onOpenDialog()}
+            onClick={() => onOpenWalletDialog()}
           >
             Add
           </button>
@@ -76,16 +106,26 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
               <UserWallets
                 key={`${portfolio.walletName}` + index}
                 userPortfolio={portfolio}
-                isSelected={selectedAsset === portfolio.walletName}
+                isSelected={selectedUserWallet === portfolio.walletName}
                 isLastBorder={index === userPortfolio.length - 1}
-                updateSelectedAsset={setSelectedAsset}
+                updateSelectedAsset={setSelectedUserWallet}
               />
             ))}
           </TableBody>
         </Table>
       </div>
       <div className="flex flex-col w-[500px]">
-        <label className="text-black text-2xl">Assets</label>
+        <div className="flex justify-between">
+          <label className="text-black text-2xl">Assets</label>
+          <button
+            title="Selecte one wallet"
+            disabled={selectedUserWallet === ""}
+            className="w-[50px] bg-gray-700 hover:bg-gray-800 text-white cursor-pointer rounded-lg disabled:bg-gray-200"
+            onClick={() => onOpenAssetDialog()}
+          >
+            Add
+          </button>
+        </div>
         <Table className="mt-4 border border-gray-300 text-black rounded-lg border-separate">
           <TableHeader className="bg-gray-50">
             <TableRow>
@@ -101,6 +141,9 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
               <TableHead className="border-b border-gray-300 px-4 py-2 text-right">
                 Purchase Price
               </TableHead>
+              <TableHead className="border-b border-gray-300 px-4 py-2">
+                Action
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -108,6 +151,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
               <UserAssets
                 key={`${assets.name}` + index}
                 userAssets={assets}
+                userPortfolio={userPortfolio}
                 isLastBorder={index === userAssets.length - 1}
               />
             ))}
@@ -121,6 +165,21 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
       >
         <WalletForm userPortfolio={userPortfolio} />
       </FormDialog>
+      <Profiler
+        id="2"
+        onRender={() => console.log("SELECTED PROFILER: ", selectedWalletId)}
+      >
+        <FormDialog
+          title={`${isFormAssetEditMode ? "Update" : "Insert"} asset`}
+          isOpen={isFormAssetOpen}
+          onDismiss={() => handleFormAssetOpen(false)}
+        >
+          <AssetForm
+            userPortfolio={userPortfolio}
+            selectedWalletId={selectedWalletId}
+          />
+        </FormDialog>
+      </Profiler>
     </div>
   );
 }

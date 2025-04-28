@@ -28,12 +28,10 @@ export function WalletForm({ userPortfolio }: WalletFormProps) {
   const [profitLoss, setProfitLoss] = useState<number>(0);
 
   useEffect(() => {
-    console.log("ISEDITFORM: ", isFormEditMode);
     if (isFormEditMode) {
       const newFormData = userPortfolio.find(
         (portfolio) => portfolio.id === selectedWalletId
       );
-      console.log("NEWFORMDATA: ", newFormData);
       if (newFormData !== undefined) {
         setWalletName(newFormData.walletName);
         setCurrentAmount(newFormData.currentAmount);

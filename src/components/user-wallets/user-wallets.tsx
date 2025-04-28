@@ -37,13 +37,18 @@ export function UserWallets({
     deleteWallet(userPortfolio.id);
   }
 
+  async function handleSelectedWallet() {
+    updateSelectedAsset(userPortfolio.walletName);
+    handleFormSelection(userPortfolio.id);
+  }
+
   return (
     <>
       {isLastBorder ? (
         <>
           <TableRow
             className="cursor-pointer"
-            onClick={() => updateSelectedAsset(userPortfolio.walletName)}
+            onClick={() => handleSelectedWallet()}
           >
             <TableCell
               className={`text-left px-4 ${
@@ -58,7 +63,7 @@ export function UserWallets({
             <TableCell className="text-right px-4 ">{`$${formatNumber(
               userPortfolio.spentAmount
             )}`}</TableCell>
-            <TableCell className="text-right px-4 ">
+            <TableCell className="text-right px-4 " >
               <button
                 className="cursor-pointer underline"
                 onClick={() => handleUpdateWallet()}
@@ -78,7 +83,7 @@ export function UserWallets({
         <>
           <TableRow
             className="cursor-pointer"
-            onClick={() => updateSelectedAsset(userPortfolio.walletName)}
+            onClick={() => handleSelectedWallet()}
           >
             <TableCell
               className={`text-left border-b border-gray-300 px-4 ${
