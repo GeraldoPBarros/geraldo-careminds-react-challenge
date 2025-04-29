@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import {
   UserAssets as Assets,
@@ -12,6 +12,7 @@ import { checkNumberAndUpdateToComma, formatNumber } from "@/lib/utils";
 import { useAsset } from "@/app/hooks/useAsset";
 import { PortfolioProps } from "@/types/portfolio-types";
 import { usePortfolio } from "@/app/hooks/usePortfolio";
+import { PriceDescription } from "../price-description/price-description";
 
 interface UserAssetsProps {
   userAssets: Assets;
@@ -32,6 +33,13 @@ export function UserAssets({
   } = useAsset();
 
   const { selectedWalletId } = usePortfolio();
+
+  const assetProfitLoss = useMemo(() => {
+    const quantity = userAssets.quantity;
+    const purchasePrice = userAssets.purchasePrice;
+    const currentPrice = userAssets.currentPrice;
+    return formatNumber(quantity * currentPrice - quantity * purchasePrice);
+  }, [userAssets]);
 
   async function handleUpdateAsset() {
     handleFormAssetEditMode(true);
@@ -68,6 +76,7 @@ export function UserAssets({
           <TableRow>
             <TableCell className="text-left px-4">
               <p className="text-wrap w-[120px]">{userAssets.name}</p>
+              <PriceDescription title="1h %" value={Number(assetProfitLoss)} />
             </TableCell>
             <TableCell className="text-right px-4">{userAssets.type}</TableCell>
             <TableCell className="text-right px-4">
@@ -97,6 +106,7 @@ export function UserAssets({
           <TableRow>
             <TableCell className="text-left border-b border-gray-300 px-4">
               <p className="text-wrap w-[120px]">{userAssets.name}</p>
+              <PriceDescription title="1h %" value={Number(assetProfitLoss)} />
             </TableCell>
             <TableCell className="text-right border-b border-gray-300 px-4">
               {userAssets.type}

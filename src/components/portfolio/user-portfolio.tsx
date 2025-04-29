@@ -78,7 +78,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
         <div className="flex justify-between">
           <label className="text-black text-2xl">Wallets</label>
           <button
-            className="w-[50px] bg-gray-700 hover:bg-gray-800 text-white cursor-pointer rounded-lg mr-8"
+            className="w-[50px] bg-gray-700 hover:bg-gray-800 text-white cursor-pointer rounded-lg mr-16"
             onClick={() => onOpenWalletDialog()}
           >
             Add

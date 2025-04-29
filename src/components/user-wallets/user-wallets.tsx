@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useMemo } from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { PortfolioProps } from "@/types/portfolio-types";
 import { formatNumber } from "@/lib/utils";
 import { usePortfolio } from "@/app/hooks/usePortfolio";
+import { PriceDescription } from "../price-description/price-description";
 
 interface UserPortfolioProps {
   userPortfolio: PortfolioProps;
@@ -26,10 +27,6 @@ export function UserWallets({
     handleFormSelection,
   } = usePortfolio();
 
-  const [totalAssetVaue, setTotalAssetValue] = useState<number>(0);
-  const [overalAssetProfitLoss, setOveralAssetProfitLoss] = useState<number>(0);
-  const [] = useState<number>(0);
-
   async function handleUpdateWallet() {
     handleFormEditMode(true);
     handleFormSelection(userPortfolio.id);
@@ -46,66 +43,59 @@ export function UserWallets({
     handleFormSelection(userPortfolio.id);
   }
 
-  function calculatePortfolioData(portfolios: PortfolioProps[]) {
-    return portfolios.map((wallet) => {
-      // Calculate Total Value of each wallet based on assets
-      const totalAssetValue = wallet.assets.reduce((sum, asset) => {
-        return sum + asset.quantity * asset.currentPrice;
-      }, 0);
-
-      // Calculate Individual asset gain/loss
-      const assetsWithProfitLoss = wallet.assets.map((asset) => {
-        const assetSpent = asset.quantity * asset.purchasePrice;
-        const assetCurrentValue = asset.quantity * asset.currentPrice;
-        const assetProfitLoss = assetCurrentValue - assetSpent;
-        return {
-          ...asset,
-          assetSpent: assetSpent,
-          assetCurrentValue: assetCurrentValue,
-          assetProfitLoss: assetProfitLoss,
-        };
-      });
-
-      // Calculate Overall profit/loss per wallet based on assets (alternative to the existing profitLoss)
-      const overallAssetProfitLoss = assetsWithProfitLoss.reduce(
-        (sum, asset) => {
-          return sum + asset.assetProfitLoss;
-        },
-        0
-      );
-
+  const walletTotalValue = useMemo(() => {
+    let totalAssetValue = 0;
+    userPortfolio.assets.forEach((asset) => {
+      totalAssetValue += asset.quantity * asset.currentPrice;
     });
-  }
+    return totalAssetValue;
+  }, [userPortfolio]);
 
-  useEffect(() => {}, []);
+  const overallWalletProfitLoss = useMemo(() => {
+    let totalAssetValue = 0;
+    userPortfolio.assets.forEach((asset) => {
+      const quantity = asset.quantity;
+      const purchasePrice = asset.purchasePrice;
+      const currentPrice = asset.currentPrice;
+      totalAssetValue += quantity * currentPrice - quantity * purchasePrice;
+    });
+    return formatNumber(totalAssetValue);
+  }, [userPortfolio]);
 
   return (
     <>
       {isLastBorder ? (
         <>
           <TableRow
-            className={`cursor-pointer transition delay-150 duration-300 hover:h-24`}
+            className={`cursor-pointer transition delay-150 duration-300`}
             onClick={() => handleSelectedWallet()}
           >
             <TableCell
-              className={`group text-left px-4 ${
+              className={`text-left px-4 ${
                 isSelected ? "font-bold" : "font-normal"
               }`}
             >
-              <p className="text-wrap w-[150px] text-[16px]">
+              <p className="text-wrap w-[120px] text-[16px]">
                 {userPortfolio.walletName}
               </p>
-              <p className="invisible group-hover:visible text-gray-400">
-                Test
-              </p>
+              <div className="flex">
+                <PriceDescription title="Total" value={walletTotalValue} />
+
+                <div className="flex flex-col ml-4 items-start">
+                  <PriceDescription
+                    title="Profit/Loss"
+                    value={Number(overallWalletProfitLoss)}
+                  />
+                </div>
+              </div>
             </TableCell>
-            <TableCell className="text-right px-4">{`$${formatNumber(
-              userPortfolio.currentAmount
-            )}`}</TableCell>
+            <TableCell className="text-right justify-end">
+              {`$${formatNumber(userPortfolio.currentAmount)}`}
+            </TableCell>
             <TableCell className="text-right px-4 ">{`$${formatNumber(
               userPortfolio.spentAmount
             )}`}</TableCell>
-            <TableCell className="text-right px-4 ">
+            <TableCell className="text-right">
               <button
                 className="cursor-pointer underline"
                 onClick={() => handleUpdateWallet()}
@@ -124,28 +114,36 @@ export function UserWallets({
       ) : (
         <>
           <TableRow
-            className="cursor-pointer transition delay-150 duration-300 hover:h-24 hover:justify-start"
+            className="cursor-pointer max-w-[30px] transition delay-150 duration-300"
             onClick={() => handleSelectedWallet()}
           >
             <TableCell
-              className={`group text-left border-b border-gray-300 px-4  ${
+              className={`text-left border-b border-gray-300 px-4  ${
                 isSelected ? "font-bold" : "font-normal"
               }`}
             >
-              <p className="text-wrap w-[150px] text-[16px]">
+              <p className="text-wrap w-[120px] text-[16px]">
                 {userPortfolio.walletName}
               </p>
-              <p className="invisible group-hover:visible text-gray-400">
-                Test
-              </p>
+              <div className="flex">
+                <PriceDescription title="Total" value={walletTotalValue} />
+
+                <div className="flex flex-col ml-4 items-start">
+                  <PriceDescription
+                    title="Profit/Loss"
+                    value={Number(overallWalletProfitLoss)}
+                  />
+                </div>
+              </div>
             </TableCell>
-            <TableCell className="text-right border-b border-gray-300 px-4">{`$${formatNumber(
-              userPortfolio.currentAmount
-            )}`}</TableCell>
+
+            <TableCell className="text-right border-b border-gray-300">
+              {`$${formatNumber(userPortfolio.currentAmount)}`}
+            </TableCell>
             <TableCell className="text-right border-b border-gray-300 px-4">{`$${formatNumber(
               userPortfolio.spentAmount
             )}`}</TableCell>
-            <TableCell className="text-right px-4 border-b border-gray-300">
+            <TableCell className="text-right border-b border-gray-300">
               <button
                 className="cursor-pointer underline"
                 onClick={() => handleUpdateWallet()}

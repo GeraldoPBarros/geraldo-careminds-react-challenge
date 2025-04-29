@@ -147,8 +147,8 @@
           "symbol": "dasdasd",
           "name": "Crypto Wallet",
           "currentPrice": 123,
-          "purchasePrice": 123123,
-          "quantity": 214124
+          "purchasePrice": 40,
+          "quantity": 113
         },
         {
           "id": "2bd85af6-b7d0-461e-9141-74e707f35267",
@@ -156,19 +156,11 @@
           "symbol": "Test",
           "name": "My new and big name asset",
           "currentPrice": 12312,
-          "purchasePrice": 123123,
-          "quantity": 534
+          "purchasePrice": 123,
+          "quantity": 20
         }
       ],
       "id": "7b06"
-    },
-    {
-      "id": "cc3c",
-      "walletName": "Teste wallet",
-      "currentAmount": 123123,
-      "spentAmount": 123320,
-      "profitLoss": 43240,
-      "assets": []
     },
     {
       "walletName": "My new and big wallet name for test the table, test teste and test",
@@ -194,14 +186,6 @@
       "currentAmount": 213123,
       "spentAmount": 321321,
       "profitLoss": 213,
-      "assets": []
-    },
-    {
-      "id": "805c",
-      "walletName": "teste",
-      "currentAmount": 123123,
-      "spentAmount": 312321,
-      "profitLoss": 213123,
       "assets": []
     }
   ]
