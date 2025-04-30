@@ -7,7 +7,7 @@ import {
   UserAssets as UserAssetsType,
 } from "@/types/user-assets-types";
 
-import { checkNumberAndUpdateToComma, formatNumber } from "@/lib/utils";
+import { checkNumberAndUpdateToDot, checkNumberAndUpdateToComma, formatNumber } from "@/lib/utils";
 
 import { useAsset } from "@/app/hooks/useAsset";
 import { PortfolioProps } from "@/types/portfolio-types";
@@ -38,7 +38,9 @@ export function UserAssets({
     const quantity = userAssets.quantity;
     const purchasePrice = userAssets.purchasePrice;
     const currentPrice = userAssets.currentPrice;
-    return formatNumber(quantity * currentPrice - quantity * purchasePrice);
+    const formattedNumber = formatNumber(quantity * currentPrice - quantity * purchasePrice);
+    const correctNumber = checkNumberAndUpdateToDot(formattedNumber);
+    return correctNumber;
   }, [userAssets]);
 
   async function handleUpdateAsset() {
@@ -76,7 +78,7 @@ export function UserAssets({
           <TableRow>
             <TableCell className="text-left px-4">
               <p className="text-wrap w-[120px]">{userAssets.name}</p>
-              <PriceDescription title="1h %" value={Number(assetProfitLoss)} />
+              <PriceDescription title="Profit/Loss" value={Number(assetProfitLoss)} />
             </TableCell>
             <TableCell className="text-right px-4">{userAssets.type}</TableCell>
             <TableCell className="text-right px-4">
@@ -106,7 +108,7 @@ export function UserAssets({
           <TableRow>
             <TableCell className="text-left border-b border-gray-300 px-4">
               <p className="text-wrap w-[120px]">{userAssets.name}</p>
-              <PriceDescription title="1h %" value={Number(assetProfitLoss)} />
+              <PriceDescription title="Profit/Loss" value={Number(assetProfitLoss)} />
             </TableCell>
             <TableCell className="text-right border-b border-gray-300 px-4">
               {userAssets.type}

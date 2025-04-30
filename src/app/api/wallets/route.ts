@@ -17,10 +17,9 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { walletName, currentAmount, spentAmount, profitLoss } =
-      await request.json();
+    const { walletName } = await request.json();
 
-    if (!walletName || !currentAmount || !spentAmount || !profitLoss) {
+    if (!walletName) {
       return NextResponse.json(
         {
           error:
@@ -32,10 +31,7 @@ export async function POST(request: Request) {
 
     const walletsData = {
       walletName,
-      currentAmount,
-      spentAmount,
-      profitLoss,
-      assets: []
+      assets: [],
     };
 
     await fetch("http://localhost:5000/wallets", {
@@ -63,12 +59,9 @@ export async function POST(request: Request) {
 
 export async function PUT(request: Request) {
   try {
-    const { id, walletName, currentAmount, spentAmount, profitLoss, assets } =
-      await request.json();
+    const { id, walletName, assets } = await request.json();
 
-    console.log("HERE: ", id, walletName, currentAmount, spentAmount, profitLoss);
-
-    if (!walletName || !currentAmount || !spentAmount || !profitLoss || !assets) {
+    if (!id || !walletName || !assets) {
       return NextResponse.json(
         {
           error:
@@ -80,10 +73,7 @@ export async function PUT(request: Request) {
 
     const walletsData = {
       walletName,
-      currentAmount,
-      spentAmount,
-      profitLoss,
-      assets
+      assets,
     };
 
     await fetch(`http://localhost:5000/wallets/${id}`, {
@@ -106,12 +96,8 @@ export async function PUT(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-
   try {
-
     const { id } = await request.json();
-
-    console.log("HERE: ", id);
 
     if (!id) {
       return NextResponse.json(

@@ -74,11 +74,11 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
 
   return (
     <div className="flex max-sm:flex-col  w-full justify-center mt-8">
-      <div className="flex flex-col w-[600px]">
+      <div className="flex flex-col w-[550px]">
         <div className="flex justify-between">
           <label className="text-black text-2xl">Wallets</label>
           <button
-            className="w-[50px] bg-gray-700 hover:bg-gray-800 text-white cursor-pointer rounded-lg mr-16"
+            className="w-[50px] bg-gray-700 hover:bg-gray-800 text-white cursor-pointer rounded-lg mr-8"
             onClick={() => onOpenWalletDialog()}
           >
             Add
@@ -159,7 +159,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
         </Table>
       </div>
       <FormDialog
-        title={`${isFormEditMode ? "Update" : "Insert"} wallet`}
+        title={`${isFormEditMode ? "Update" : "Create"} wallet`}
         isOpen={isFormOpen}
         onDismiss={() => handleFormOpen(false)}
       >
@@ -170,7 +170,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
         onRender={() => console.log("SELECTED PROFILER: ", selectedWalletId)}
       >
         <FormDialog
-          title={`${isFormAssetEditMode ? "Update" : "Insert"} asset`}
+          title={`${isFormAssetEditMode ? "Update" : "Create"} asset`}
           isOpen={isFormAssetOpen}
           onDismiss={() => handleFormAssetOpen(false)}
         >

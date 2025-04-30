@@ -47,14 +47,12 @@ export const PortfolioProvider = ({ children }: any) => {
         .then(setPortfolio);
     } catch (error) {
       console.error("Error: ", error);
+      toast.error("Error! Reload the page and try again.");
     }
   };
 
   const createNewWallet = async (
     walletName: string,
-    currentAmount: number,
-    spentAmount: number,
-    profitLoss: number
   ) => {
     try {
       const response = await fetch("api/wallets", {
@@ -65,9 +63,6 @@ export const PortfolioProvider = ({ children }: any) => {
         },
         body: JSON.stringify({
           walletName: walletName,
-          currentAmount: currentAmount,
-          spentAmount: spentAmount,
-          profitLoss: profitLoss,
         }),
       });
       console.log(response);
@@ -77,15 +72,13 @@ export const PortfolioProvider = ({ children }: any) => {
       }
     } catch (error) {
       console.log("Error:", error);
+      toast.error("Error");
     }
   };
 
   const updateWallet = async (
     id: string,
     walletName: string,
-    currentAmount: number,
-    spentAmount: number,
-    profitLoss: number,
     assets: UserAssets[]
   ) => {
     try {
@@ -98,9 +91,6 @@ export const PortfolioProvider = ({ children }: any) => {
         body: JSON.stringify({
           id: id,
           walletName: walletName,
-          currentAmount: currentAmount,
-          spentAmount: spentAmount,
-          profitLoss: profitLoss,
           assets: assets,
         }),
       });
@@ -110,6 +100,7 @@ export const PortfolioProvider = ({ children }: any) => {
       }
     } catch (error) {
       console.log("Error:", error);
+      toast.error("Error");
     }
   };
 
@@ -131,6 +122,7 @@ export const PortfolioProvider = ({ children }: any) => {
       }
     } catch (error) {
       console.error("Error: ", error);
+      toast.error("Error");
     }
   };
 

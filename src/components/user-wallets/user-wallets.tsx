@@ -3,7 +3,7 @@
 import React, { useMemo } from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { PortfolioProps } from "@/types/portfolio-types";
-import { formatNumber } from "@/lib/utils";
+import { checkNumberAndUpdateToDot, formatNumber } from "@/lib/utils";
 import { usePortfolio } from "@/app/hooks/usePortfolio";
 import { PriceDescription } from "../price-description/price-description";
 
@@ -59,7 +59,17 @@ export function UserWallets({
       const currentPrice = asset.currentPrice;
       totalAssetValue += quantity * currentPrice - quantity * purchasePrice;
     });
-    return formatNumber(totalAssetValue);
+    const formattedNumber = formatNumber(totalAssetValue);
+    const correctNumber = checkNumberAndUpdateToDot(formattedNumber);
+    return correctNumber;
+  }, [userPortfolio]);
+
+  const walletSpentAmount = useMemo(() => {
+    let totalSpentAmount = 0;
+    userPortfolio.assets.forEach((asset) => {
+      totalSpentAmount += asset.purchasePrice * asset.quantity;
+    });
+    return totalSpentAmount;
   }, [userPortfolio]);
 
   return (
@@ -79,9 +89,7 @@ export function UserWallets({
                 {userPortfolio.walletName}
               </p>
               <div className="flex">
-                <PriceDescription title="Total" value={walletTotalValue} />
-
-                <div className="flex flex-col ml-4 items-start">
+                <div className="flex flex-col items-start">
                   <PriceDescription
                     title="Profit/Loss"
                     value={Number(overallWalletProfitLoss)}
@@ -90,10 +98,10 @@ export function UserWallets({
               </div>
             </TableCell>
             <TableCell className="text-right justify-end">
-              {`$${formatNumber(userPortfolio.currentAmount)}`}
+              {`$${formatNumber(walletTotalValue)}`}
             </TableCell>
             <TableCell className="text-right px-4 ">{`$${formatNumber(
-              userPortfolio.spentAmount
+              walletSpentAmount
             )}`}</TableCell>
             <TableCell className="text-right">
               <button
@@ -126,9 +134,7 @@ export function UserWallets({
                 {userPortfolio.walletName}
               </p>
               <div className="flex">
-                <PriceDescription title="Total" value={walletTotalValue} />
-
-                <div className="flex flex-col ml-4 items-start">
+                <div className="flex flex-col items-start">
                   <PriceDescription
                     title="Profit/Loss"
                     value={Number(overallWalletProfitLoss)}
@@ -138,10 +144,10 @@ export function UserWallets({
             </TableCell>
 
             <TableCell className="text-right border-b border-gray-300">
-              {`$${formatNumber(userPortfolio.currentAmount)}`}
+              {`$${formatNumber(walletTotalValue)}`}
             </TableCell>
             <TableCell className="text-right border-b border-gray-300 px-4">{`$${formatNumber(
-              userPortfolio.spentAmount
+              walletSpentAmount
             )}`}</TableCell>
             <TableCell className="text-right border-b border-gray-300">
               <button

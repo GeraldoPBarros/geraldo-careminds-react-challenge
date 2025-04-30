@@ -206,7 +206,7 @@ export function AssetForm({
       </div>
 
       <div className="mt-4 flex justify-end">
-        <Button className=" cursor-pointer" size="lg" onClick={onSubmit}>
+        <Button className=" cursor-pointer bg-gray-700 hover:bg-gray-800 text-white" size="lg" onClick={onSubmit}>
           Save Asset
         </Button>
       </div>

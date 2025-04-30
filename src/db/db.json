@@ -1,11 +1,7 @@
 {
   "wallets": [
     {
-      "id": "b743",
-      "walletName": "Main Investment Account",
-      "currentAmount": 42000,
-      "spentAmount": 35000,
-      "profitLoss": 7000,
+      "walletName": "Main Investment Account 1",
       "assets": [
         {
           "id": "3242",
@@ -21,9 +17,9 @@
           "type": "crypto",
           "symbol": "ETH",
           "name": "Ethereum",
-          "quantity": 1.5,
+          "currentPrice": 3200,
           "purchasePrice": 1800,
-          "currentPrice": 3200
+          "quantity": 1.6
         },
         {
           "id": "987vsd",
@@ -43,7 +39,8 @@
           "purchasePrice": 0.4,
           "currentPrice": 0.55
         }
-      ]
+      ],
+      "id": "b743"
     },
     {
       "id": "qw53",
@@ -136,43 +133,13 @@
       ]
     },
     {
-      "walletName": "My new wallet 2",
-      "currentAmount": 163429,
-      "spentAmount": 13123,
-      "profitLoss": 45535,
-      "assets": [
-        {
-          "id": "612f1289-9d73-44bf-8414-abbca32b737e",
-          "type": "dasdsa",
-          "symbol": "dasdasd",
-          "name": "Crypto Wallet",
-          "currentPrice": 123,
-          "purchasePrice": 40,
-          "quantity": 113
-        },
-        {
-          "id": "2bd85af6-b7d0-461e-9141-74e707f35267",
-          "type": "Investment",
-          "symbol": "Test",
-          "name": "My new and big name asset",
-          "currentPrice": 12312,
-          "purchasePrice": 123,
-          "quantity": 20
-        }
-      ],
-      "id": "7b06"
-    },
-    {
-      "walletName": "My new and big wallet name for test the table, test teste and test",
-      "currentAmount": 123,
-      "spentAmount": 123,
-      "profitLoss": 123,
+      "walletName": "My new and big wallet name for test the table",
       "assets": [
         {
           "id": "ebcb043e-1d4d-4ba2-b542-546cb34f7b65",
-          "type": "Bitcoin",
-          "symbol": "Bit",
-          "name": "Teste wallet",
+          "type": "stoc",
+          "symbol": "test",
+          "name": "Asset test",
           "currentPrice": 3123,
           "purchasePrice": 12312,
           "quantity": 11
@@ -181,12 +148,19 @@
       "id": "220b"
     },
     {
-      "id": "a87a",
-      "walletName": "Teste 2",
-      "currentAmount": 213123,
-      "spentAmount": 321321,
-      "profitLoss": 213,
-      "assets": []
+      "walletName": "Crypto 4",
+      "assets": [
+        {
+          "id": "741f35ab-d914-41c1-b65c-31b9da316294",
+          "type": "Crypto",
+          "symbol": "Eth",
+          "name": "Ethereum",
+          "currentPrice": 179962,
+          "purchasePrice": 162023,
+          "quantity": 15
+        }
+      ],
+      "id": "0312"
     }
   ]
 }

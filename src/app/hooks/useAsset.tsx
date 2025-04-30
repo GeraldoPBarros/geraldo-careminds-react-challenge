@@ -68,6 +68,7 @@ export const AssetProvider = ({ children }: any) => {
       }
     } catch (error) {
       console.log("Error:", error);
+      toast.error("Error");
     }
   };
 
@@ -92,7 +93,7 @@ export const AssetProvider = ({ children }: any) => {
 export const useAsset = () => {
   const context = useContext(AssetContext);
   if (!context) {
-    throw new Error("usePortfolio should be used inside of an AuthProvider");
+    throw new Error("useAsset should be used inside of an AuthProvider");
   }
   return context;
 };

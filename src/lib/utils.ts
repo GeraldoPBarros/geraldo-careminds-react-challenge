@@ -23,3 +23,14 @@ export function checkNumberAndUpdateToComma(value: string): string {
 
   return value;
 }
+
+export function checkNumberAndUpdateToDot(value: string): string {
+  'use strict';
+
+  const newValue = value.replace(',', '.');
+
+  if (!isNaN(parseFloat(newValue))) return newValue;
+
+  return value;
+}
+
