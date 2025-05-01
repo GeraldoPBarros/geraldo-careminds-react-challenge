@@ -42,9 +42,13 @@ export const PortfolioProvider = ({ children }: any) => {
 
   const getPortfolio = async () => {
     try {
+      setLoading(true);
       fetch("/api/wallets")
         .then((res) => res.json())
-        .then(setPortfolio);
+        .then((res) => {
+          setPortfolio(res);
+          setLoading(false);
+        });
     } catch (error) {
       console.error("Error: ", error);
       toast.error("Error! Reload the page and try again.");

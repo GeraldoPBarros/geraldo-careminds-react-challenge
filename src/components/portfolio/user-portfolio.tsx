@@ -20,6 +20,7 @@ import { WalletForm } from "../wallet-form/wallet-form";
 import { usePortfolio } from "@/app/hooks/usePortfolio";
 import { AssetForm } from "../asset-form/asset-form";
 import { useAsset } from "@/app/hooks/useAsset";
+import { Loading } from "../ui/loading";
 
 export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
   const {
@@ -28,6 +29,7 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
     handleFormOpen,
     handleFormEditMode,
     selectedWalletId,
+    loading,
   } = usePortfolio();
 
   const {
@@ -84,35 +86,39 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
             Add
           </button>
         </div>
-        <Table className="mt-4 border border-gray-300 text-black rounded-lg border-separate max-w-[300px]">
-          <TableHeader className="bg-gray-50">
-            <TableRow>
-              <TableHead className="border-b border-gray-300 px-4 py-2">
-                Name
-              </TableHead>
-              <TableHead className="border-b border-gray-300 px-4 py-2">
-                Current Amount
-              </TableHead>
-              <TableHead className="border-b border-gray-300 px-4 py-2">
-                Spent Amount
-              </TableHead>
-              <TableHead className="border-b border-gray-300 px-4 py-2">
-                Action
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {userPortfolio.map((portfolio, index) => (
-              <UserWallets
-                key={`${portfolio.walletName}` + index}
-                userPortfolio={portfolio}
-                isSelected={selectedUserWallet === portfolio.walletName}
-                isLastBorder={index === userPortfolio.length - 1}
-                updateSelectedAsset={setSelectedUserWallet}
-              />
-            ))}
-          </TableBody>
-        </Table>
+        {loading ? (
+          <Loading />
+        ) : (
+          <Table className="mt-4 border border-gray-300 text-black rounded-lg border-separate max-w-[300px]">
+            <TableHeader className="bg-gray-50">
+              <TableRow>
+                <TableHead className="border-b border-gray-300 px-4 py-2">
+                  Name
+                </TableHead>
+                <TableHead className="border-b border-gray-300 px-4 py-2">
+                  Current Amount
+                </TableHead>
+                <TableHead className="border-b border-gray-300 px-4 py-2">
+                  Spent Amount
+                </TableHead>
+                <TableHead className="border-b border-gray-300 px-4 py-2">
+                  Action
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {userPortfolio.map((portfolio, index) => (
+                <UserWallets
+                  key={`${portfolio.walletName}` + index}
+                  userPortfolio={portfolio}
+                  isSelected={selectedUserWallet === portfolio.walletName}
+                  isLastBorder={index === userPortfolio.length - 1}
+                  updateSelectedAsset={setSelectedUserWallet}
+                />
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </div>
       <div className="flex flex-col w-[600px]">
         <div className="flex justify-between">
@@ -126,37 +132,42 @@ export function UserPortfolio({ userPortfolio }: UserPortfolioProps) {
             Add
           </button>
         </div>
-        <Table className="mt-4 border border-gray-300 text-black rounded-lg border-separate">
-          <TableHeader className="bg-gray-50">
-            <TableRow>
-              <TableHead className="border-b border-gray-300 px-4 py-2">
-                Asset
-              </TableHead>
-              <TableHead className="border-b border-gray-300 px-4 py-2 text-right">
-                Type
-              </TableHead>
-              <TableHead className="border-b border-gray-300 px-4 py-2 text-right">
-                Quantity
-              </TableHead>
-              <TableHead className="border-b border-gray-300 px-4 py-2 text-right">
-                Purchase Price
-              </TableHead>
-              <TableHead className="border-b border-gray-300 px-4 py-2">
-                Action
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {userAssets.map((assets, index) => (
-              <UserAssets
-                key={`${assets.name}` + index}
-                userAssets={assets}
-                userPortfolio={userPortfolio}
-                isLastBorder={index === userAssets.length - 1}
-              />
-            ))}
-          </TableBody>
-        </Table>
+        {loading ? (
+          <Loading />
+        ) : (
+          <Table className="mt-4 border border-gray-300 text-black rounded-lg border-separate">
+            <TableHeader className="bg-gray-50">
+              <TableRow>
+                <TableHead className="border-b border-gray-300 px-4 py-2">
+                  Asset
+                </TableHead>
+                <TableHead className="border-b border-gray-300 px-4 py-2 text-right">
+                  Type
+                </TableHead>
+                <TableHead className="border-b border-gray-300 px-4 py-2 text-right">
+                  Quantity
+                </TableHead>
+                <TableHead className="border-b border-gray-300 px-4 py-2 text-right">
+                  Purchase Price
+                </TableHead>
+                <TableHead className="border-b border-gray-300 px-4 py-2">
+                  Action
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {userAssets.map((assets, index) => (
+                <UserAssets
+                  key={`${assets.name}` + index}
+                  userAssets={assets}
+                  userPortfolio={userPortfolio}
+                  isLastBorder={index === userAssets.length - 1}
+                />
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </div>
       <FormDialog
         title={`${isFormEditMode ? "Update" : "Create"} wallet`}
