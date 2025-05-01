@@ -141,8 +141,17 @@
           "symbol": "test",
           "name": "Asset test",
           "currentPrice": 3123,
-          "purchasePrice": 12312,
+          "purchasePrice": 12313,
           "quantity": 11
+        },
+        {
+          "id": "4fe0c017-0d72-40e7-8e89-aa3847942088",
+          "type": "crypto",
+          "symbol": "Eth",
+          "name": "Ethereum",
+          "currentPrice": 1723,
+          "purchasePrice": 1689,
+          "quantity": 5
         }
       ],
       "id": "220b"
@@ -161,6 +170,21 @@
         }
       ],
       "id": "0312"
+    },
+    {
+      "walletName": "Wallet test",
+      "assets": [
+        {
+          "id": "7a6c7e17-b0af-4fad-aa6c-fb3bc7994bbb",
+          "type": "test123",
+          "symbol": "t",
+          "name": "Test",
+          "currentPrice": 2000,
+          "purchasePrice": 1700,
+          "quantity": 10
+        }
+      ],
+      "id": "950e"
     }
   ]
 }

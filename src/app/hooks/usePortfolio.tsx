@@ -55,9 +55,18 @@ export const PortfolioProvider = ({ children }: any) => {
     }
   };
 
-  const createNewWallet = async (
-    walletName: string,
-  ) => {
+  const updatePortfolioState = async () => {
+    try {
+      fetch("/api/wallets")
+        .then((res) => res.json())
+        .then(setPortfolio);
+    } catch (error) {
+      console.error("Error: ", error);
+      toast.error("Error! Reload the page and try again.");
+    }
+  };
+
+  const createNewWallet = async (walletName: string) => {
     try {
       const response = await fetch("api/wallets", {
         method: "POST",
@@ -72,7 +81,7 @@ export const PortfolioProvider = ({ children }: any) => {
       console.log(response);
       if (response.ok) {
         toast.success("Wallet successfully added");
-        getPortfolio();
+        updatePortfolioState();
       }
     } catch (error) {
       console.log("Error:", error);
@@ -100,7 +109,7 @@ export const PortfolioProvider = ({ children }: any) => {
       });
       if (response.ok) {
         toast.success("Wallet successfully updated");
-        getPortfolio();
+        updatePortfolioState();
       }
     } catch (error) {
       console.log("Error:", error);
@@ -122,7 +131,7 @@ export const PortfolioProvider = ({ children }: any) => {
       });
       if (response.ok) {
         toast.success("Wallet deleted successfully");
-        getPortfolio();
+        updatePortfolioState();
       }
     } catch (error) {
       console.error("Error: ", error);
