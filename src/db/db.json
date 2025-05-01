@@ -142,7 +142,16 @@
           "name": "Asset test",
           "currentPrice": 3123,
           "purchasePrice": 12312,
-          "quantity": 11
+          "quantity": 10
+        },
+        {
+          "id": "f6a9cdb2-ce52-41a1-a9c8-c07f50a28ae2",
+          "type": "crypto",
+          "symbol": "AD",
+          "name": "Ada",
+          "currentPrice": 40,
+          "purchasePrice": 37,
+          "quantity": 20
         }
       ],
       "id": "220b"

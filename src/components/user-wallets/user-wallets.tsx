@@ -145,7 +145,7 @@ export function UserWallets({
             <TableCell className="text-right border-b border-gray-300">
               {`${formatNumber(walletTotalValue)}`}
             </TableCell>
-            <TableCell className="text-right border-b border-gray-300 px-4">{`$${formatNumber(
+            <TableCell className="text-right border-b border-gray-300 px-4">{`${formatNumber(
               walletSpentAmount
             )}`}</TableCell>
             <TableCell className="text-right border-b border-gray-300">
