@@ -19,7 +19,7 @@ const AssetContext = createContext<AssetContextType>({
 
 export const AssetProvider = ({ children }: any) => {
 
-  const { getPortfolio } = usePortfolio();
+  const { updatePortfolioState } = usePortfolio();
 
   const [loading, setLoading] = useState(false);
   const [selectedAssetId, setSelectedAssetId] = useState<string>("");
@@ -64,7 +64,7 @@ export const AssetProvider = ({ children }: any) => {
       });
       if (response.ok) {
         toast.success("Asset successfully updated");
-        getPortfolio();
+        updatePortfolioState();
       }
     } catch (error) {
       console.log("Error:", error);

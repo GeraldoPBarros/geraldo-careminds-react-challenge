@@ -6,18 +6,18 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatNumber(value: number): string {
-  const formattedNumber = value.toLocaleString("pt-BR", {
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 3,
-  });
+  const formattedNumber = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(value);
 
   return formattedNumber;
 }
 
 export function checkNumberAndUpdateToComma(value: string): string {
-  'use strict';
+  "use strict";
 
-  const newValue = value.replace('.', ',');
+  const newValue = value.replace(".", ",");
 
   if (!isNaN(parseFloat(newValue))) return newValue;
 
@@ -25,12 +25,11 @@ export function checkNumberAndUpdateToComma(value: string): string {
 }
 
 export function checkNumberAndUpdateToDot(value: string): string {
-  'use strict';
+  "use strict";
 
-  const newValue = value.replace(',', '.');
+  const newValue = value.replace(",", ".");
 
   if (!isNaN(parseFloat(newValue))) return newValue;
 
   return value;
 }
-

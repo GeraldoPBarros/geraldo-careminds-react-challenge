@@ -23,6 +23,7 @@ export interface PortfolioContextType {
   isFormOpen: boolean;
   handleFormOpen: (status: boolean) => void;
   getPortfolio: () => void;
+  updatePortfolioState: () => void;
   createNewWallet: (
     walletName: string,
   ) => void;

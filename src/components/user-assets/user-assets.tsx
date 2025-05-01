@@ -38,9 +38,8 @@ export function UserAssets({
     const quantity = userAssets.quantity;
     const purchasePrice = userAssets.purchasePrice;
     const currentPrice = userAssets.currentPrice;
-    const formattedNumber = formatNumber(quantity * currentPrice - quantity * purchasePrice);
-    const correctNumber = checkNumberAndUpdateToDot(formattedNumber);
-    return correctNumber;
+    const formattedNumber = (quantity * currentPrice - quantity * purchasePrice);
+    return formattedNumber;
   }, [userAssets]);
 
   async function handleUpdateAsset() {
@@ -78,13 +77,13 @@ export function UserAssets({
           <TableRow>
             <TableCell className="text-left px-4">
               <p className="text-wrap w-[120px]">{userAssets.name}</p>
-              <PriceDescription title="Profit/Loss" value={Number(assetProfitLoss)} />
+              <PriceDescription title="Profit/Loss" value={assetProfitLoss} />
             </TableCell>
             <TableCell className="text-right px-4">{userAssets.type}</TableCell>
             <TableCell className="text-right px-4">
               {userAssets.quantity}
             </TableCell>
-            <TableCell className="text-right px-4">{`$${formatNumber(
+            <TableCell className="text-right px-4">{`${formatNumber(
               userAssets.purchasePrice
             )}`}</TableCell>
             <TableCell className="text-right px-4 ">
@@ -108,7 +107,7 @@ export function UserAssets({
           <TableRow>
             <TableCell className="text-left border-b border-gray-300 px-4">
               <p className="text-wrap w-[120px]">{userAssets.name}</p>
-              <PriceDescription title="Profit/Loss" value={Number(assetProfitLoss)} />
+              <PriceDescription title="Profit/Loss" value={assetProfitLoss} />
             </TableCell>
             <TableCell className="text-right border-b border-gray-300 px-4">
               {userAssets.type}
@@ -116,7 +115,7 @@ export function UserAssets({
             <TableCell className="text-right border-b border-gray-300 px-4">
               {checkNumberAndUpdateToComma(userAssets.quantity.toString())}
             </TableCell>
-            <TableCell className="text-right border-b border-gray-300 px-4">{`$${formatNumber(
+            <TableCell className="text-right border-b border-gray-300 px-4">{`${formatNumber(
               userAssets.purchasePrice
             )}`}</TableCell>
             <TableCell className="text-right px-4 border-b border-gray-300">

@@ -7,12 +7,15 @@ interface PriceDescriptionProps {
 }
 
 export function PriceDescription({ title, value }: PriceDescriptionProps) {
+
+  console.log("NUMBER: ", value);
+
   return (
     <div className="flex">
       <div className="flex flex-col items-start">
         <p
           className={`${value >= 0 ? "text-green-600" : "text-red-600"}`}
-        >{`$${formatNumber(value)}`}</p>
+        >{formatNumber(value)}</p>
         <p className="text-gray-600 text-[12px]">{title}</p>
       </div>
     </div>

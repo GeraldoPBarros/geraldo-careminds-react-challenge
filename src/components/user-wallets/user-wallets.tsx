@@ -59,9 +59,8 @@ export function UserWallets({
       const currentPrice = asset.currentPrice;
       totalAssetValue += quantity * currentPrice - quantity * purchasePrice;
     });
-    const formattedNumber = formatNumber(totalAssetValue);
-    const correctNumber = checkNumberAndUpdateToDot(formattedNumber);
-    return correctNumber;
+    const formattedNumber = totalAssetValue;
+    return formattedNumber;
   }, [userPortfolio]);
 
   const walletSpentAmount = useMemo(() => {
@@ -92,15 +91,15 @@ export function UserWallets({
                 <div className="flex flex-col items-start">
                   <PriceDescription
                     title="Profit/Loss"
-                    value={Number(overallWalletProfitLoss)}
+                    value={overallWalletProfitLoss}
                   />
                 </div>
               </div>
             </TableCell>
             <TableCell className="text-right justify-end">
-              {`$${formatNumber(walletTotalValue)}`}
+              {`${formatNumber(walletTotalValue)}`}
             </TableCell>
-            <TableCell className="text-right px-4 ">{`$${formatNumber(
+            <TableCell className="text-right px-4 ">{`${formatNumber(
               walletSpentAmount
             )}`}</TableCell>
             <TableCell className="text-right">
@@ -137,14 +136,14 @@ export function UserWallets({
                 <div className="flex flex-col items-start">
                   <PriceDescription
                     title="Profit/Loss"
-                    value={Number(overallWalletProfitLoss)}
+                    value={overallWalletProfitLoss}
                   />
                 </div>
               </div>
             </TableCell>
 
             <TableCell className="text-right border-b border-gray-300">
-              {`$${formatNumber(walletTotalValue)}`}
+              {`${formatNumber(walletTotalValue)}`}
             </TableCell>
             <TableCell className="text-right border-b border-gray-300 px-4">{`$${formatNumber(
               walletSpentAmount
